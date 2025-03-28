@@ -1,0 +1,52 @@
+.title{
+    color: #1AADF8; 
+}
+
+.num{
+    font-size: 13px;
+    color: #9B9B9A; 
+    font-weight: 600;
+}
+
+.notes{
+    background-color:rgba(45,45,45,.90);
+    border-radius:16px;
+    box-sizing: border-box;
+    margin-top: 0.5rem;
+    padding-bottom: 1rem; 
+}
+
+.top{
+    display: flex;
+    justify-content: end;
+    height: 24px; 
+    border-radius: 16px 16px 0 0 ;
+    padding-right: 8px;
+}
+
+.topBorder{
+    border-top: dotted 2px;
+    border-bottom: none; 
+    margin: 1rem 0 1rem 0 ;
+}
+
+.editBtn{
+    background-color: transparent;
+    line-height: 0;
+    margin-left: 8px;
+    border-radius: 16px;
+    border:none; 
+}
+
+.notesBorder{
+    margin: 0.5rem 0 0.5rem 0; 
+    border: 0.5px solid gray; 
+}
+
+.checkBtn{
+    height: 15px;
+    width: 15px; 
+    border-radius: 16px;
+    border: 1px dashed white; 
+    margin-right: 8px;
+}
