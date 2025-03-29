@@ -4,6 +4,8 @@ import styles from "../page.module.css"
 import Input from "./input";
 import Notes from "./notes";
 import Reminder from "./reminder";
+import Music from "./music";
+import Alarm from "./timer";
 
 async function regen(setLoading, info, setInfo, prompt, app) {
 
@@ -78,8 +80,31 @@ function Node({app, category, len}) {
                 setPrompt = {setPrompt}
                 generate = {regen}
             />
+        ): app === "Music"?(
+            <Music
+                app = {app}
+                len = {len}
+                info = {info}
+                setInfo = {setInfo} 
+                prompt = {prompt}
+                setPrompt = {setPrompt}
+                generate = {regen}
+            />
+        ): app === "Alarm"?(
+            <Alarm
+                app = {app}
+                len = {len}
+                info = {info}
+                setInfo = {setInfo} 
+                prompt = {prompt}
+                setPrompt = {setPrompt}
+                generate = {regen}
+            />
         ):(
-            <div style={
+            <div 
+                contentEditable
+                suppressContentEditableWarning
+                style={
                 {backgroundColor:"rgba(45,45,45,.90)", 
                 height:height, 
                 padding:"8px", 

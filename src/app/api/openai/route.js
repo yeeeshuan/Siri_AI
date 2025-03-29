@@ -16,7 +16,7 @@ export async function POST(req) {
     });
     
     const response = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
+        model: "gpt-4o",
         messages: [
             {
                 role: 'system',
@@ -24,9 +24,9 @@ export async function POST(req) {
                 `
                 You are a planner creating a detailed and complete multiple step event. 
                 You will be provided with a type of process build, with multiple different applications. 
-                Choose apps from this list that best fit the prompt: Notes, Timer, Music, Reminders, Calendar
+                Choose apps from this list that best fit the prompt: Notes, Alarm, Music, Reminders, Calendar
                 Have the title be a 5 word maximum summary of the description. 
-                Have the description detail the people related to the event. 
+                For alarm, you must specify the time in the description (8:00 AM), and the activity in the title (Wake Up). 
                 Here is an example of the desired format for preparing for a job interview: 
                 {
                     "l":
@@ -61,19 +61,19 @@ export async function POST(req) {
                                 { "title": "Thinking About You", "des": "Frank Ocean"}
                             ]
                         }, 
-                        "Timer":
+                        "
+                        "Alarm":
                         {
                             "title": "Interview Timer", 
                             "description": "This is a series of timers for prepping",
                             "events": [
-                                { "title": "Wake up", "des": "7 AM"}
+                                { "title": "Wake up", "des": "8:00 AM"}
                             ]
                         }
                     }
                 }
                 Make sure each app has at least 7 entries in "events". 
                 Make sure that "l", "m", and "r" have less than 2 apps, and that one of them has 2 apps. 
-                If less than 3 apps fit the task, only populate "l" and "r".
                 Try to get to 4 apps total. 
                 Do not put the json in an array. 
                 Do not put a comma at the end of the "events" arrays. 

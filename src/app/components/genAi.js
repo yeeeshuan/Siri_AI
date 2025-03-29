@@ -55,10 +55,14 @@ async function generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRig
     }
 }
 
-// async function lebron(nodes, setNodes){
-//     const temp = await JSON.parse(nodes); 
-//     setNodes(temp); 
-// }
+async function lebron(nodes, setNodes, setLeft, setMiddle, setRight){
+    const temp = await JSON.parse(nodes); 
+    console.log("TEMP", temp); 
+    setNodes(temp); 
+    setLeft(temp.l)
+    setMiddle(temp.m)
+    setRight(temp.r)
+}
 
 function GenAI(setLoading, loading) {
 
@@ -66,160 +70,83 @@ function GenAI(setLoading, loading) {
     const [middle, setMiddle] = useState(null); 
     const [right, setRight] = useState(null); 
 
-    // const [event, setEvents] = useState(
-    //    `
-    //    {
-    //     "l": {
-    //         "Notes": {
-    //             "title": "Algorithm Notes",
-    //             "description": "Detailed notes for algorithm design midterm",
-    //             "events": [
-    //                 {
-    //                     "title": "Study Greedy Algorithms",
-    //                     "des": "Review greedy algorithm concepts and examples."
-    //                 },
-    //                 {
-    //                     "title": "Practice Dynamic Programming",
-    //                     "des": "Solve dynamic programming problems to reinforce understanding."
-    //                 },
-    //                 {
-    //                     "title": "Review Divide and Conquer",
-    //                     "des": "Go over divide and conquer algorithm principles."
-    //                 },
-    //                 {
-    //                     "title": "Learn Graph Algorithms",
-    //                     "des": "Study graph algorithms like Dijkstra and Floyd-Warshall."
-    //                 },
-    //                 {
-    //                     "title": "Understand Complexity Analysis",
-    //                     "des": "Review big O notation and time complexity analysis."
-    //                 },
-    //                 {
-    //                     "title": "Master Backtracking",
-    //                     "des": "Practice backtracking algorithm techniques."
-    //                 },
-    //                 {
-    //                     "title": "Explore Tree Algorithms",
-    //                     "des": "Study different tree traversal and manipulation algorithms."
-    //                 }
-    //             ]
-    //         }
-    //     },
-    //     "m": {
-    //         "Reminders": {
-    //             "title": "Study Reminders",
-    //             "description": "Set reminders for algorithm design midterm",
-    //             "events": [
-    //                 {
-    //                     "title": "Review Greedy Algorithms",
-    //                     "des": "Set a reminder to review greedy algorithms."
-    //                 },
-    //                 {
-    //                     "title": "Practice DP Problems",
-    //                     "des": "Reminder to solve dynamic programming problems."
-    //                 },
-    //                 {
-    //                     "title": "Divide and Conquer Study",
-    //                     "des": "Set a reminder to go over divide and conquer."
-    //                 },
-    //                 {
-    //                     "title": "Graph Algorithms Review",
-    //                     "des": "Reminder to study graph algorithms."
-    //                 },
-    //                 {
-    //                     "title": "Complexity Analysis Study",
-    //                     "des": "Set a reminder for complexity analysis revision."
-    //                 },
-    //                 {
-    //                     "title": "Backtracking Practice",
-    //                     "des": "Reminder to practice backtracking techniques."
-    //                 },
-    //                 {
-    //                     "title": "Tree Algorithms Exploration",
-    //                     "des": "Set a reminder to study tree algorithms."
-    //                 }
-    //             ]
-    //         }
-    //     },
-    //     "r": {
-    //         "Music": {
-    //             "title": "Study Playlist",
-    //             "description": "Music playlist for algorithm design study",
-    //             "events": [
-    //                 {
-    //                     "title": "Focus Music",
-    //                     "des": "Instrumental music for concentration."
-    //                 },
-    //                 {
-    //                     "title": "Classical Study Music",
-    //                     "des": "Classical music for studying."
-    //                 },
-    //                 {
-    //                     "title": "Brain Boosting Beats",
-    //                     "des": "Upbeat music to keep energy levels high."
-    //                 },
-    //                 {
-    //                     "title": "Ambient Sounds",
-    //                     "des": "Relaxing background sounds for focus."
-    //                 },
-    //                 {
-    //                     "title": "Epic Film Scores",
-    //                     "des": "Inspirational film scores to motivate."
-    //                 },
-    //                 {
-    //                     "title": "Jazz Study Session",
-    //                     "des": "Jazz music for a relaxed studying atmosphere."
-    //                 },
-    //                 {
-    //                     "title": "Electronic Study Beats",
-    //                     "des": "Electronic music for study sessions."
-    //                 }
-    //             ]
-    //         },
-    //         "Timer": {
-    //             "title": "Study Timers",
-    //             "description": "Set study timers for algorithm design prep",
-    //             "events": [
-    //                 {
-    //                     "title": "Pomodoro Technique",
-    //                     "des": "Use 25-5 Pomodoro timer for focused study."
-    //                 },
-    //                 {
-    //                     "title": "Interval Study Timer",
-    //                     "des": "Set intervals for study and short breaks."
-    //                 },
-    //                 {
-    //                     "title": "Long Study Sessions",
-    //                     "des": "Timer for longer study periods with breaks."
-    //                 },
-    //                 {
-    //                     "title": "Focus Burst Timer",
-    //                     "des": "Short intervals of intense focus with breaks."
-    //                 },
-    //                 {
-    //                     "title": "Relaxation Timer",
-    //                     "des": "Time for relaxation and stress relief."
-    //                 },
-    //                 {
-    //                     "title": "Endurance Study Timer",
-    //                     "des": "Timer for extended study sessions."
-    //                 },
-    //                 {
-    //                     "title": "Quick Study Boost",
-    //                     "des": "Short timer for quick study sessions."
-    //                 }
-    //             ]
-    //         }
-    //     }
-    // }
-    // `
-    // )
+    const [event, setEvents] = useState(
+    `
+    {
+        "l":
+        {
+            "Alarm":
+            {
+                "title": "Interview Day Alarm", 
+                "description": "Set alarms for the day of the interview",
+                "events": [
+                    { "title": "Wake Up", "des": "8:00 AM"},
+                    { "title": "Leave for Interview", "des": "10:00 AM"},
+                    { "title": "Reminder to Breathe", "des": "10:15 AM"},
+                    { "title": "Final Review", "des": "10:30 AM"},
+                    { "title": "Travel Time", "des": "10:45 AM"},
+                    { "title": "Interview Start", "des": "11:00 AM"},
+                    { "title": "Follow-Up Reminder", "des": "Set for the next day after interview."}
+                ]
+            }
+        },
+        "m":
+        {
+            "Music":
+            {
+                "title": "Motivation Playlist", 
+                "description": "This is a playlist to energize before the interview",
+                "events": [
+                    { "title": "Survivor", "des": "Destiny's Child"},
+                    { "title": "Eye of the Tiger", "des": "Survivor"},
+                    { "title": "Stronger", "des": "Kanye West"},
+                    { "title": "Can't Stop the Feeling!", "des": "Justin Timberlake"},
+                    { "title": "Happy", "des": "Pharrell Williams"},
+                    { "title": "Fighter", "des": "Christina Aguilera"},
+                    { "title": "On Top of the World", "des": "Imagine Dragons"}
+                ]
+            }
+        },
+        "r":
+        {
+            "Music":
+            {
+                "title": "Motivation Playlist", 
+                "description": "This is a playlist to energize before the interview",
+                "events": [
+                    { "title": "Survivor", "des": "Destiny's Child"},
+                    { "title": "Eye of the Tiger", "des": "Survivor"},
+                    { "title": "Stronger", "des": "Kanye West"},
+                    { "title": "Can't Stop the Feeling!", "des": "Justin Timberlake"},
+                    { "title": "Happy", "des": "Pharrell Williams"},
+                    { "title": "Fighter", "des": "Christina Aguilera"},
+                    { "title": "On Top of the World", "des": "Imagine Dragons"}
+                ]
+            }, 
+            "Alarm":
+            {
+                "title": "Interview Day Alarm", 
+                "description": "Set alarms for the day of the interview",
+                "events": [
+                    { "title": "Wake Up", "des": "8:00 AM"},
+                    { "title": "Leave for Interview", "des": "10:00 AM"},
+                    { "title": "Reminder to Breathe", "des": "10:15 AM"},
+                    { "title": "Final Review", "des": "10:30 AM"},
+                    { "title": "Travel Time", "des": "10:45 AM"},
+                    { "title": "Interview Start", "des": "11:00 AM"},
+                    { "title": "Follow-Up Reminder", "des": "Set for the next day after interview."}
+                ]
+            }
+        }
+    } 
+    `
+    )
 
     const [nodes, setNodes] = useState(null)
 
     // useEffect(() => {
     //     if (!nodes) {
-    //         lebron(event, setNodes);
+    //         lebron(event, setNodes, setLeft, setMiddle, setRight);
     //     }
     // }, [nodes]);
 
@@ -234,13 +161,13 @@ function GenAI(setLoading, loading) {
         <>
             <div style={{display: "flex", justifyContent: "end"}}>
                 <div className={styles.genAI}>
-                    <h1>What can I help you with?</h1>
+                    <h2>What can I help you with?</h2>
                     <div style={{display:"flex", justifyContent:"center"}}>
                         <div className={styles.form}>
                             <textarea className={styles.prompt} 
                             id="prompt"
                             onChange={handleInputChange}/>
-                            <div style={{display:"flex", alignItems:"center", height: "26px", paddingRight:"8px"}}>
+                            <div style={{display:"flex", alignItems:"center", height: "26px"}}>
                                 <button 
                                     className={`${styles.upload} ${prompt.length ? styles.uploadActive : ''}`}
                                     onClick={() => generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRight)}> 
@@ -253,12 +180,12 @@ function GenAI(setLoading, loading) {
                     )}
                 </div>     
             </div>
-        {nodes?.m && Object.keys(middle).length > 0 ? (
+        {nodes?.m ?(
         <>
             <div style={{display:"flex", justifyContent:"end"}}>
                 <div style={{ width:"100%", display:"flex", justifyContent:"space-between"}}>
                     <div style={{width:"32.5%"}}>
-                        {nodes.l && Object.entries(left).map(([key, category]) => (
+                        {nodes.l && left && Object.entries(left).map(([key, category]) => (
                             < Node
                                 app = {key}
                                 category = {category}
@@ -267,7 +194,7 @@ function GenAI(setLoading, loading) {
                         ))}
                     </div>
                     <div style={{width:"32.5%"}}>
-                        {nodes.m && Object.entries(middle).map(([key, category]) => (
+                        {nodes.m && middle && Object.entries(middle).map(([key, category]) => (
                             < Node
                                 app = {key}
                                 category = {category}
@@ -276,7 +203,7 @@ function GenAI(setLoading, loading) {
                         ))}
                     </div>
                     <div style={{width:"32.5%"}}>
-                        {nodes.r && Object.entries(right).map(([key, category]) => (
+                        {nodes.r && right && Object.entries(right).map(([key, category]) => (
                             < Node
                                 app = {key}
                                 category = {category}
@@ -292,7 +219,7 @@ function GenAI(setLoading, loading) {
             <div style={{display:"flex", justifyContent:"end"}}>
             <div style={{ width:"100%", display:"flex", justifyContent:"space-between"}}>
                 <div style={{width:"49.5%"}}>
-                    {nodes && Object.entries(nodes.l).map(([key, category]) => (
+                    {nodes && left && Object.entries(left).map(([key, category]) => (
                         < Node
                             pos = "l"
                             app = {key}
@@ -304,7 +231,7 @@ function GenAI(setLoading, loading) {
                     ))}
                 </div>
                 <div style={{width:"49.5%"}}>
-                    {nodes && Object.entries(nodes.r).map(([key, category]) => (
+                    {nodes && right && Object.entries(right).map(([key, category]) => (
                         < Node
                             pos = "r"
                             app = {key}

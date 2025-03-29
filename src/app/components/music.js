@@ -1,33 +1,38 @@
 "use client"
-import styles from "./reminder.module.css"
+import styles from "./music.module.css"
 import Input from "./input";
 import { useState } from "react";
 
-function Reminder({app, len, info, setInfo, prompt, setPrompt, generate}) {
+function Music({app, len, info, setInfo, prompt, setPrompt, generate}) {
     const height = `${80 / len}vh`;
-    const lHeight = len === 2 ? "22vh" : "60vh"; // or any default value
+    const lHeight = len == 2 ? "22vh" : "63vh"; // or any default value
     const [loading, setLoading] = useState(false)
     return(
-        <div className={styles.notes}
-            contentEditable
-            suppressContentEditableWarning
+        <div 
+            className={styles.notes}
             height
             key={app}>
             <div className={styles.top}>
                 <button className={styles.editBtn}><img height="16px" src ="/delete.svg"/></button>
             </div>
-            <div style={{margin:"8px 16px"}}>
-                <h1 className={styles.title}>{app}: {info.title}</h1>
-                <p style={{color:"lightgray"}}>{info.description}</p>
+            <div 
+                contentEditable
+                suppressContentEditableWarning
+                style={{margin:"8px 16px", display:"flex"}}>
+                <div style={{marginRight:"8px"}}>
+                   <img height="36px" width="36px" src="/spotify.svg"/>
+                </div>
+                <div>
+                    <h1>{app}: {info.title}</h1>
+                    <p style={{color:"lightgray"}}>{info.description}</p>
+                </div>
             </div>
-            <div style={{margin:"16px 16px 8px 16px"}}>
-                <p className={styles.num}>{info.events.length} uncompleted</p>
-            </div>
-            <div style={{margin:"8px 16px", height:lHeight, overflowY:"auto"}} className={styles.events}>
+            <div 
+            style={{margin:"8px 16px", height:lHeight, overflowY:"auto"}} className={styles.events}>
                 {info.events.map((event, index) => (
                     <div style={{marginTop:"8px", display:"flex"}} key={index} className={styles.event}>
-                        <div>
-                            <button className={styles.checkBtn}/>
+                        <div style={{marginRight:"16px"}}>
+                            <h3 className={styles.num}>{index}</h3>
                         </div>
                         <div style={{width:"100%"}}>
                             <h3>{event.title}</h3>
@@ -48,10 +53,10 @@ function Reminder({app, len, info, setInfo, prompt, setPrompt, generate}) {
                 app = {app}
             />
             {loading && (
-                 <p style={{marginLeft: "16px"}}>Loading ...</p>
+                <p style={{marginLeft: "16px"}}>Loading ...</p>
             )}
         </div>
     )
 }
 
-export default Reminder;
+export default Music;

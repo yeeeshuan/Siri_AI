@@ -1,3 +1,5 @@
+
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
@@ -86,12 +88,7 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: white; 
 }
 
 a {
@@ -101,23 +98,28 @@ a {
 
 h1{
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   color: white; 
   font-weight: bold;
 }
 
 h2{
-  font-size: 14px; 
+  font-size: 13px; 
   color: white; 
+  font-weight: 600;
 }
 
 h3{
-  font-size: 11px
+  font-size: 11px; 
 }
 
 p{
   font-size: 11px; 
   color: white; 
+}
+
+div {
+  outline: none; 
 }
 
 textarea{

@@ -4,17 +4,24 @@
     box-sizing: border-box;
     margin-top: 0.5rem;
     padding-bottom: 1rem; 
-    font-size: 11px;
-    font-weight: 400;
 }
 
 .top{
     display: flex;
     justify-content: end;
-    background-color: #FDC801; 
     height: 24px; 
     border-radius: 16px 16px 0 0 ;
     padding-right: 8px;
+}
+
+.time{
+    font-size: 36px;
+    font-weight: 400;
+}
+
+.des{
+    color: lightgray; 
+    font-size: 14px;
 }
 
 .topBorder{

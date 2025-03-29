@@ -1,8 +1,8 @@
 .main{
-  min-height: 100vh; 
+  max-height: 100vh;
   padding: 3rem; 
-  /* background-image: url(./images/background.jpg); */
-  background-color: white;
+  background-color: white; 
+
 }
 
 .genAI{
