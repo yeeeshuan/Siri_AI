@@ -95,17 +95,12 @@ export default function Home() {
       <main className={styles.main}>
           {all && (
             <GenAI 
-            setLoading = {setLoading} 
-            loading = {loading}
-            setNodes = {setNodes}
-            nodes = {nodes}
+            setLoading = {setLoading} loading = {loading}
+            setNodes = {setNodes} nodes = {nodes}
             setApps = {setApps}
-            setLeft={setLeft}
-            left={left}
-            setMiddle={setMiddle}
-            middle={middle}
-            setRight={setRight}
-            right={right}
+            setLeft={setLeft} left={left}
+            setMiddle={setMiddle} middle={middle}
+            setRight={setRight} right={right}
             setAlarmInfo = {setAlarmInfo}
             setRemindersInfo = {setRemindersInfo}
             setMusicInfo = {setMusicInfo}

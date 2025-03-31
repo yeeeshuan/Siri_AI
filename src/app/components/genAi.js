@@ -124,7 +124,15 @@ async function lebron(nodes, setNodes, setLeft, setMiddle, setRight, setApps, se
     setApps(allApps)
 }
 
-function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, setMiddle, middle, setRight, right, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo}) {
+function GenAI({
+        setLoading, loading, 
+        setNodes, nodes, 
+        setApps, 
+        setLeft, left, 
+        setMiddle, middle, 
+        setRight, right, 
+        setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo
+    }) {
 
     // event is a temporary const for a sample json to test 
     // event is what nodes will look like after generation is called. 
@@ -200,11 +208,11 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
     `
     )
 
-    useEffect(() => {
-        if (!nodes) {
-            lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo);
-        }
-    }, [nodes]);
+    // useEffect(() => {
+    //     if (!nodes) {
+    //         lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo);
+    //     }
+    // }, [nodes]);
 
     const [prompt, setPrompt] = useState(""); 
 
@@ -227,7 +235,14 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
                             <div style={{display:"flex", alignItems:"center", height: "26px"}}>
                                 <button 
                                     className={`${styles.upload} ${prompt.length ? styles.uploadActive : ''}`}
-                                    onClick={() => generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRight, setApps, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo)}> 
+                                    onClick={() => generate(
+                                        setLoading, 
+                                        setNodes, 
+                                        prompt, 
+                                        setLeft, setMiddle, setRight, 
+                                        setApps, 
+                                        setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo
+                                        )}> 
                                 </button>
                             </div>
                         </div>   
@@ -247,8 +262,6 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
                                 app = {key}
                                 category = {category}
                                 len = {Object.keys(left).length}
-                                parseApps = {parseApps}
-                                setNoteInfo = {setNoteInfo}
                             />
                         ))}
                     </div>
@@ -258,8 +271,6 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
                                 app = {key}
                                 category = {category}
                                 len = {Object.keys(middle).length}
-                                parseApps = {parseApps}
-                                setNoteInfo = {setNoteInfo}
                             />
                         ))}
                     </div>
@@ -269,8 +280,6 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
                                 app = {key}
                                 category = {category}
                                 len = {Object.keys(right).length}
-                                parseApps = {parseApps}
-                                setNoteInfo = {setNoteInfo}
                             />
                         ))}
                     </div>
@@ -286,8 +295,6 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
                             app = {key}
                             category = {category}
                             len = {Object.keys(nodes.l).length}
-                            parseApps = {parseApps}
-                            setNoteInfo = {setNoteInfo}
                         />
                     ))}
                 </div>
@@ -297,8 +304,6 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
                             app = {key}
                             category = {category}
                             len = {Object.keys(nodes.r).length}
-                            parseApps = {parseApps}
-                            setNoteInfo = {setNoteInfo}
                         />
                     ))}
                 </div>

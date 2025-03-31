@@ -35,18 +35,6 @@ function NotesPage({app, info}) {
                         </div>
                     ))}
                 </div>
-                {/* <Input
-                    generate = {generate}
-                    info = {info}
-                    setInfo = {setInfo}
-                    prompt =  {prompt}
-                    setPrompt = {setPrompt}
-                    setLoading = {setLoading}
-                    app = {app}
-                />
-                {loading && (
-                    <p style={{marginLeft: "16px"}}>Loading ...</p>
-                )} */}
             </div>
         </div>
     )
