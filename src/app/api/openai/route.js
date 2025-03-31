@@ -16,7 +16,7 @@ export async function POST(req) {
     });
     
     const response = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
+        model: "gpt-3.5-turbo",
         messages: [
             {
                 role: 'system',
@@ -25,7 +25,7 @@ export async function POST(req) {
                 Your job is to return JSON that includes:
                 - You are a planner creating a detailed and complete multiple step event. 
                 - You will be provided with a type of process build, with multiple different applications. 
-                - Choose apps from this list that best fit the prompt: Notes, Alarm, Music, Reminders, Calendar
+                - Choose apps from this list that best fit the prompt: Notes, Alarm, Music, Reminders
                 - Have the title be a 5 word maximum summary of the description. 
                 - Here is an example of the desired format for preparing for a job interview: 
 
@@ -81,7 +81,6 @@ export async function POST(req) {
                 - YOU MUST Return the response in JSON format that can be parsed by JSON.parse().
                 - YOU MUST Try to get to 4 apps total. 
                 - YOU MUST For alarm, you must specify the time in the description (8:00 AM), and the activity in the title (Wake Up). 
-                - DO NOT for the alarm, add anything other than the time in the description. 
                 - DO NOT put the json in an array. 
                 - DO NOT put a comma at the end of the "events" arrays. 
 
