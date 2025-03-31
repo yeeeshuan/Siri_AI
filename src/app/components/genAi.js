@@ -196,11 +196,11 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
     `
     )
 
-    useEffect(() => {
-        if (!nodes) {
-            lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo);
-        }
-    }, [nodes]);
+    // useEffect(() => {
+    //     if (!nodes) {
+    //         lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo);
+    //     }
+    // }, [nodes]);
 
     const [prompt, setPrompt] = useState(""); 
 
