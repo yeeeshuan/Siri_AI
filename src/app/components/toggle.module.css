@@ -6,30 +6,17 @@ width: 51px;
 height: 31px;
 align-self: end;
 border-radius: 15px;
-background-color: #787880;
+background-color: var(--button-gray);
 }
 
 .son{
-background-color: #4CAF50; /* Green when checked */
+background-color:var(--button-green); /* Green when checked */
 }
 
 .switch input {
 opacity: 0;
 width: 0;
 height: 0;
-}
-
-.slider {
-position: absolute;
-cursor: pointer;
-background-color: #ccc;
-border-radius: 40px;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background-color: #4CAF50; /* Green when checked */
-transition: 0.4s;
 }
 
 .on:before {
@@ -54,14 +41,4 @@ bottom: 2px;
 background-color: white;
 border-radius: 50%;
 transition: 0.4s;
-}
-
-
-
-input:checked + .slider {
-background-color: #4CAF50;
-}
-
-input:checked + .slider:before {
-transform: translateX(0);
 }

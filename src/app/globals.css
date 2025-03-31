@@ -40,6 +40,12 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+
+  --dark-gray: rgba(45,45,45,.90);
+  --text-gray: #9B9B9A;  
+  
+  --button-gray: #787880;
+  --button-green:  #4CAF50;
 }
 
 @media (prefers-color-scheme: dark) {

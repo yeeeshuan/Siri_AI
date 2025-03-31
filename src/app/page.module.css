@@ -1,20 +1,30 @@
 .main{
-  max-height: 100vh;
-  padding: 3rem; 
+  min-height: 100vh;
   background-color: white; 
+  background-image: url(./images/background.jpg);
+  overflow-y: hidden;
+}
 
+.sidebar{
+  width: 96vw; 
+  border-radius: 16px;
+  background-color: var(--dark-gray);
+  border: gray 1px solid; 
+  display: flex;
+  z-index: 100;
+  position: fixed;
+  bottom: 1rem; 
 }
 
 .genAI{
   width: 330px;
   height: fit-content;
   margin-left: 13px;
-  background-color: #2D2E2D;
   border-radius: 16px;
   text-align: center;
   align-items: center;
   justify-content: center;
-  background-color: rgba(45,45,45,.90);
+  background-color: var(--dark-gray);
   border: 1px solid #484847;
   padding: 20px; 
   box-sizing: border-box; 
@@ -46,6 +56,10 @@
   white-space: normal;
   caret-color: #0A84FF;
   overflow: hidden; /* Prevent scrolling */
+}
+
+.inputContainer{
+  margin-top: auto;
 }
 
 .rForm {
@@ -115,44 +129,9 @@
   font-size: 12px; 
 }
 
-.warning {
-  border: 2px solid red; 
-  width: 300px; 
-  background-color: white; 
-  padding: 8px; 
-  font-family: 'Inter', Times, serif;
-}
-
-.warning input{
-  width: 100%; 
-  padding: 0 8px; 
-  height: 24px; 
-  margin-top: 4px;
-  background-color: white;
-  outline: none; 
-  border: 1px solid black;
-  color: black; 
-  font-family: 'Inter', Times, serif;
-  font-size: 12px;
-
-}
-
 .warning div{
   margin-top: 8px;
 }
-
-.btnInspo{
-  color: white; 
-  background: none;
-  border: 1px solid white;
-  border-radius: 4px;
-  padding: 8px;
-  display: block; 
-  width: 100%; 
-  text-align: left;
-  margin-top: 8px;
-}
-
 .upload{
   text-align: center;
   width: 28px; 
@@ -186,35 +165,11 @@
 
 }
 
-.dropdown{
-  margin-top: 16px; 
-  border-radius: 0 0 4px 4px;
-  background-color: #161D25;
-}
-
 .inputWrapper { 
   position: relative; 
   display: inline-block; 
   margin-top: 8px;
 } 
-
-.node{
-  border-bottom: 1px solid gray; 
-  margin: 20px 0 20px 0; 
-  padding-bottom: 20px;
-  color: white; 
-}
-
-.result{
-  margin-top: 20px;
-  padding: 20px 10px 20px 20px; 
-  background-color: rgba(45,45,45,.90);
-  border: 1px solid #484847;
-  border-radius: 16px;
-  opacity: 95%;
-  box-sizing: border-box;
-  width: 330px; 
-}
 
 .button{
   width: 47%; 
@@ -225,12 +180,8 @@
   font-size: 12px;
 }
 
-.cancel{
-  width: 49%; 
-  background-color: #9E9EA3;
-}
-
-.save{
-  width: 49%; 
-  background-color: #0A84FF;
+.colThird{
+  width: 32.5%; 
+  display: flex;
+  flex-wrap: wrap;
 }

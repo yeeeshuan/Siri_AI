@@ -3,12 +3,12 @@ import styles from "./notes.module.css"
 import Input from "./input";
 import { useState } from "react";
 
-function Notes({app, len, info, setInfo, prompt, setPrompt, generate}) {
-    const [loading, setLoading] = useState(false)
-
+function NotesPage({app, info}) {
+    // const [loading, setLoading] = useState(false)
     return(
         <div className={styles.notesWrapper}>
-            <div className={`${styles.notes} ${styles.up}`}
+            <div 
+                className={`${styles.notes} ${styles.page}`}
                 key={app}>
                 <div className={styles.top}>
                     <button className={styles.editBtn}><img height="16px" src ="/delete.svg"/></button>
@@ -18,11 +18,9 @@ function Notes({app, len, info, setInfo, prompt, setPrompt, generate}) {
                     contentEditable
                     suppressContentEditableWarning
                     style={{margin:"8px 16px"}}>
-                    <h1>{app}: {info.title}</h1>
+                    <h1>{app}: {info.title}</h1> 
                     <p style={{color:"lightgray"}}>{info.description}</p>
                 </div>
-            </div>
-            <div style={{height: len == 1? "70.5vh" : "25vh"}} className={`${styles.notes} ${styles.middle}`}>
                 <div 
                 contentEditable
                 suppressContentEditableWarning
@@ -36,9 +34,7 @@ function Notes({app, len, info, setInfo, prompt, setPrompt, generate}) {
                         </div>
                     ))}
                 </div>
-            </div>
-            <div className={`${styles.notes} ${styles.down}`}>
-                <Input
+                {/* <Input
                     generate = {generate}
                     info = {info}
                     setInfo = {setInfo}
@@ -49,10 +45,10 @@ function Notes({app, len, info, setInfo, prompt, setPrompt, generate}) {
                 />
                 {loading && (
                     <p style={{marginLeft: "16px"}}>Loading ...</p>
-                )}
+                )} */}
             </div>
         </div>
     )
 }
 
-export default Notes;
+export default NotesPage;

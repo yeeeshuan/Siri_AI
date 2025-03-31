@@ -19,7 +19,7 @@ function Input({generate, info, setInfo, prompt, setPrompt, setLoading, app}) {
     };
 
     return(
-        <>
+        <div className={styles.inputContainer}>
         <div className={styles.rForm}>
             <textarea className={styles.prompt} 
             onKeyDown={handleKeyDown}
@@ -33,7 +33,7 @@ function Input({generate, info, setInfo, prompt, setPrompt, setLoading, app}) {
                 <img height="16px" width="19px" src="/regen.svg"/>
             </button>
         </div>
-        </>
+        </div>
     )
 }
 

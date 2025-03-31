@@ -17,7 +17,7 @@ export async function POST(req) {
     });
     
     const response = await openai.chat.completions.create({
-        model: "gpt-4.0-mini",
+        model: "gpt-4o-mini",
         messages: [
             {
               role: 'system',
@@ -56,6 +56,7 @@ export async function POST(req) {
           - DO NOT return an array as the root element — the root must be an object.
           - DO NOT include a comma after the final item in the "events" array.
           - DO NOT include extra text, commentary, or formatting — just the JSON.
+          - DO NOT add text other than the time (7:00 AM) if its an alarm event description. 
           
           Context:
           - Here's the user's original input: **${input}**

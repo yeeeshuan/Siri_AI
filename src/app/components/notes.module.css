@@ -1,11 +1,46 @@
-.notes{
-    background-color:rgba(45,45,45,.90);
-    border-radius:16px;
+.notesWrapper{
+    width: 100%; 
+}
+
+.notes {
+    background-color: var(--dark-gray);
     box-sizing: border-box;
-    margin-top: 0.5rem;
-    padding-bottom: 1rem; 
-    font-size: 11px;
-    font-weight: 400;
+    overflow: hidden;
+}
+
+.up {
+    border: gray 1px solid;
+    border-radius: 16px 16px 0 0;
+    border-bottom: none;
+}
+
+.middle{
+    border: gray 1px solid;
+    border-top: none;
+    border-bottom: none;
+    overflow: auto; 
+    height: 50%; 
+}
+
+.down{
+    border: gray 1px solid;
+    border-radius: 0 0 16px 16px;
+    border-top: none;
+}
+
+.large {
+    height: 100%;
+}
+
+.small {
+    height: 50%;
+}
+
+.page {
+    height: 84vh;
+    margin: 2vw; 
+    border-radius: 16px;
+    border: 1px solid gray;
 }
 
 .top{
