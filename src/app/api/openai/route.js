@@ -24,7 +24,6 @@ export async function POST(req) {
                 `
                 Your job is to return JSON that includes:
                 - You are a planner creating a detailed and complete multiple step event. 
-                - You will be provided with a type of process build, with multiple different applications. 
                 - Choose apps from this list that best fit the prompt: Notes, Alarm, Music, Reminders
                 - Have the title be a 5 word maximum summary of the description. 
                 - Here is an example of the desired format for preparing for a job interview: 
@@ -63,7 +62,6 @@ export async function POST(req) {
                                 { "title": "Thinking About You", "des": "Frank Ocean"}
                             ]
                         }, 
-                        "
                         "Alarm":
                         {
                             "title": "Interview Timer", 
@@ -83,8 +81,7 @@ export async function POST(req) {
                 - YOU MUST For alarm, you must specify the time in the description (8:00 AM), and the activity in the title (Wake Up). 
                 - DO NOT put the json in an array. 
                 - DO NOT put a comma at the end of the "events" arrays. 
-
-                Do a good job and I will tip you.`
+                `
             },
             {
                 role: 'user',
