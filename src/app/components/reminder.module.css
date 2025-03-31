@@ -48,7 +48,7 @@
 
 .page {
     height: 84vh;
-    margin: 2vw;
+    margin: 1vw 2vw; 
     border-radius: 16px;
     border: 1px solid gray;
 }

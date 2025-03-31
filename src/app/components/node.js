@@ -7,6 +7,7 @@ import Reminder from "./reminder";
 import Music from "./music";
 import Alarm from "./timer";
 
+// Regeneration function API call 
 async function regen(setLoading, info, setInfo, prompt, app) {
 
     console.log("regenerate"); 
@@ -31,6 +32,10 @@ async function regen(setLoading, info, setInfo, prompt, app) {
          
         console.log("NEW NODES", res); 
  
+        info.title = res.title; 
+        info.description = res.description;
+        info.events = res.events; 
+    
         setInfo(res);
         
     } catch (error) {
@@ -39,11 +44,6 @@ async function regen(setLoading, info, setInfo, prompt, app) {
         console.log("done");
         setLoading(false); // Set loading state to false once processing is done
     }
-}
-
-function onClick(pos, key, nodes) {
-    console.log(nodes); 
-    console.log("EVENTS IN", key, nodes[pos][key])
 }
 
 function Node({app, category, len}) {

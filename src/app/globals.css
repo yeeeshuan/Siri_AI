@@ -107,21 +107,25 @@ h1{
   font-size: 16px;
   color: white; 
   font-weight: bold;
+  outline: none;
 }
 
 h2{
   font-size: 13px; 
   color: white; 
   font-weight: 600;
+  outline: none;
 }
 
 h3{
   font-size: 11px; 
+  outline: none;
 }
 
 p{
   font-size: 11px; 
   color: white; 
+  outline: none;
 }
 
 div {

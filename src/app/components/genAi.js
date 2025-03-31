@@ -76,6 +76,9 @@ async function generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRig
 
 // Function for looking through the JSON and parsing information into the correct apps. 
 function parseApps(temp, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo){
+
+    console.log("TEMP", temp); 
+
     if ("Alarm" in temp){
         setAlarmInfo(temp.Alarm)
     }
@@ -98,7 +101,9 @@ function parseApps(temp, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteIn
 // Named after my GOAT, lebron
 async function lebron(nodes, setNodes, setLeft, setMiddle, setRight, setApps, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo){
     const temp = await JSON.parse(nodes); 
-    console.log("TEMP", temp); 
+
+    console.log("LEBRON", temp); 
+
     setNodes(temp); 
     setLeft(temp.l)
     setMiddle(temp.m)
@@ -116,7 +121,6 @@ async function lebron(nodes, setNodes, setLeft, setMiddle, setRight, setApps, se
         ...Object.keys(temp.r || {})
       ];
 
-    console.log("ALL APPS", allApps)
     setApps(allApps)
 }
 
@@ -196,11 +200,11 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
     `
     )
 
-    // useEffect(() => {
-    //     if (!nodes) {
-    //         lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo);
-    //     }
-    // }, [nodes]);
+    useEffect(() => {
+        if (!nodes) {
+            lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo);
+        }
+    }, [nodes]);
 
     const [prompt, setPrompt] = useState(""); 
 
@@ -243,6 +247,8 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
                                 app = {key}
                                 category = {category}
                                 len = {Object.keys(left).length}
+                                parseApps = {parseApps}
+                                setNoteInfo = {setNoteInfo}
                             />
                         ))}
                     </div>
@@ -252,6 +258,8 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
                                 app = {key}
                                 category = {category}
                                 len = {Object.keys(middle).length}
+                                parseApps = {parseApps}
+                                setNoteInfo = {setNoteInfo}
                             />
                         ))}
                     </div>
@@ -261,6 +269,8 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
                                 app = {key}
                                 category = {category}
                                 len = {Object.keys(right).length}
+                                parseApps = {parseApps}
+                                setNoteInfo = {setNoteInfo}
                             />
                         ))}
                     </div>
@@ -273,24 +283,22 @@ function GenAI({setLoading, loading, setNodes, nodes, setApps, setLeft, left, se
                 <div style={{width:"49.5%"}}>
                     {nodes && left && Object.entries(left).map(([key, category]) => (
                         < Node
-                            pos = "l"
                             app = {key}
                             category = {category}
                             len = {Object.keys(nodes.l).length}
-                            nodes =  {nodes}
-                            setNodes = {setNodes}
+                            parseApps = {parseApps}
+                            setNoteInfo = {setNoteInfo}
                         />
                     ))}
                 </div>
                 <div style={{width:"49.5%"}}>
                     {nodes && right && Object.entries(right).map(([key, category]) => (
                         < Node
-                            pos = "r"
                             app = {key}
                             category = {category}
                             len = {Object.keys(nodes.r).length}
-                            nodes =  {nodes}
-                            setNodes = {setNodes}
+                            parseApps = {parseApps}
+                            setNoteInfo = {setNoteInfo}
                         />
                     ))}
                 </div>

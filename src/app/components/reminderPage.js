@@ -4,6 +4,7 @@ import Input from "./input";
 import { useState } from "react";
 
 function ReminderPage({app, info}) {
+    console.log("REMINDER", info)
     return(
         <div className={`${styles.notes} ${styles.page}`}
             height

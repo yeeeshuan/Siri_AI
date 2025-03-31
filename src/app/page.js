@@ -115,7 +115,7 @@ export default function Home() {
 
           {reminders && (
             <>
-              <ReminderPage app = {"Reminders"} info={noteInfo}/>
+              <ReminderPage app = {"Reminders"} info={remindersInfo}/>
             </>
           )}
 

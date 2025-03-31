@@ -3,6 +3,26 @@ import styles from "./reminder.module.css"
 import Input from "./input";
 import { useState } from "react";
 
+function onTitleChange(main, info, setInfo, id, newTitle) {
+    console.log(newTitle)
+    if (main){
+        info.title = newTitle;
+    }else{
+        info.events[id].title = newTitle;
+    }
+    setInfo(info); 
+}
+
+function onDesChange(main, info, setInfo, id, newDes) {
+    console.log(newDes)
+    if (main){
+        info.description = newDes; 
+    }else{
+        info.events[id].des = newDes;
+    }
+    setInfo(info); 
+}
+
 function Reminder({app, len, info, setInfo, prompt, setPrompt, generate}) {
     const [loading, setLoading] = useState(false)
     return(
@@ -13,12 +33,21 @@ function Reminder({app, len, info, setInfo, prompt, setPrompt, generate}) {
                 <div className={styles.top}>
                     <button className={styles.editBtn}><img height="16px" src ="/delete.svg"/></button>
                 </div>
-                <div 
-                    contentEditable
-                    suppressContentEditableWarning
-                style={{margin:"8px 16px"}}>
-                    <h1 className={styles.title}>{app}: {info.title}</h1>
-                    <p style={{color:"lightgray"}}>{info.description}</p>
+                <div style={{margin:"8px 16px"}}>
+                    <h1
+                        contentEditable
+                        suppressContentEditableWarning
+                        onBlur={(e) => onTitleChange(true, info, setInfo, -1, e.target.innerText)}
+                        className={styles.title}>
+                        {app}: {info.title}
+                    </h1>
+                    <p 
+                        contentEditable
+                        suppressContentEditableWarning
+                        onBlur={(e) => onDesChange(true, info, setInfo, -1, e.target.innerText)} 
+                        style={{color:"lightgray"}}>
+                        {info.description}
+                    </p>
                 </div>
                 <div style={{margin:"16px 16px 8px 16px"}}>
                     <p className={styles.num}>{info.events.length} uncompleted</p>
@@ -32,12 +61,23 @@ function Reminder({app, len, info, setInfo, prompt, setPrompt, generate}) {
                                 <button className={styles.checkBtn}/>
                             </div>
                             <div 
-                            contentEditable
-                            suppressContentEditableWarning
                             style={{width:"100%"}}>
-                                <h3>{event.title}</h3>
-                                {/* Handle different structures for `event` */}
-                                {event.des && <p style={{color:"lightgray"}}>{event.des}</p>}
+                                <h3 
+                                contentEditable
+                                suppressContentEditableWarning
+                                onBlur={(e) => onTitleChange(false, info, setInfo, index, e.target.innerText)}
+                                >
+                                    {event.title}
+                                </h3>
+
+                                {event.des && <p 
+                                style={{color:"lightgray"}}
+                                contentEditable
+                                suppressContentEditableWarning
+                                onBlur={(e) => onDesChange(false, info, setInfo, index, e.target.innerText)}
+                                >
+                                    {event.des}
+                                </p>}
                                 <hr className={styles.notesBorder}/>
                             </div>
                         </div>

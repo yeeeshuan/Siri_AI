@@ -4,6 +4,7 @@ import Input from "./input";
 import { useState } from "react";
 
 function NotesPage({app, info}) {
+    console.log("NOTES PAGE", info)
     // const [loading, setLoading] = useState(false)
     return(
         <div className={styles.notesWrapper}>
