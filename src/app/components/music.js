@@ -3,20 +3,26 @@ import styles from "./music.module.css"
 import Input from "./input";
 import { useState } from "react";
 
-function Music({app, len, info, setInfo, prompt, setPrompt, generate}) {
+function Music({app, len, info, setInfo, prompt, setPrompt, generate, selected, listApps, setClicked}) {
+    console.log("LIST APPS", selected, listApps)
 
     const [loading, setLoading] = useState(false)
     return(
-        <div className={styles.notesWrapper}>
+        <div className={styles.notesWrapper}
+        onClick = {() => setClicked(app)}
+        style={{height: 
+                (len == 2)? (selected === "Music") ? "73%" : 
+                    (!(selected === "All") && !(selected === "Music") && (selected in listApps)) ? "5%" : 
+                        "37%" 
+                : "100%" }}>
             <div className={`${styles.notes} ${styles.up}`}
-                key={app}>
-                <div className={styles.top}>
-                    <button className={styles.editBtn}><img height="16px" src ="/delete.svg"/></button>
-                </div>
+                key={app}
+                style = {{borderColor: (selected === "Music") ? "rgb(50,173,230)" : ""}}>
+                <div className={styles.top}/>
                 <div 
                     contentEditable
                     suppressContentEditableWarning
-                    style={{margin:"8px 16px", display:"flex"}}>
+                    style={{margin:"0 16px 8px 16px", display:"flex"}}>
                     <div style={{marginRight:"8px"}}>
                     <img height="36px" width="36px" src="/spotify.svg"/>
                     </div>
@@ -26,7 +32,8 @@ function Music({app, len, info, setInfo, prompt, setPrompt, generate}) {
                     </div>
                 </div>
             </div>
-            <div style={{height: len == 1? "70vh" : "26.5vh"}} className={`${styles.notes} ${styles.middle}`}>
+            <div className={`${styles.notes} ${styles.middle}`}
+            style = {{borderColor: (selected === "Music") ? "rgb(50,173,230)" : ""}}>
                 <div className={styles.events}>
                     {info.events.map((event, index) => (
                         <div style={{marginTop:"8px", display:"flex"}} key={index} className={styles.event}>
@@ -43,19 +50,18 @@ function Music({app, len, info, setInfo, prompt, setPrompt, generate}) {
                     ))}
                 </div>
             </div>
-            <div className={`${styles.notes} ${styles.down}`}>
+            <div className={`${styles.notes} ${styles.down}`}
+            style = {{borderColor: (selected === "Music") ? "rgb(50,173,230)" : ""}}>
                 <Input
                     generate = {generate}
                     info = {info}
                     setInfo = {setInfo}
                     prompt =  {prompt}
                     setPrompt = {setPrompt}
+                    loading = {loading}
                     setLoading = {setLoading}
                     app = {app}
                 />
-                {loading && (
-                    <p style={{marginLeft: "16px"}}>Loading ...</p>
-                )}
             </div>
         </div>
     )

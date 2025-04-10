@@ -3,13 +3,12 @@ import styles from "./notes.module.css"
 import Input from "./input";
 import { useState } from "react";
 
-function onClick(info, id) {
-    console.log(info.events[id])
-}
-
 function onTitleChange(main, info, setInfo, id, newTitle) {
-    console.log(newTitle)
-    if (main){
+    if (id == Object.entries(info.events).length){
+        console.log("penis")
+        info.events[id] = {title: newTitle}
+    }
+    else if (main){
         info.title = newTitle;
     }else{
         info.events[id].title = newTitle;
@@ -19,7 +18,11 @@ function onTitleChange(main, info, setInfo, id, newTitle) {
 
 function onDesChange(main, info, setInfo, id, newDes) {
     console.log(newDes)
-    if (main){
+    if (id == Object.entries(info.events).length){
+        console.log("penis")
+        info.events[id] = {des: newDes}
+    }
+    else if (main){
         info.description = newDes; 
     }else{
         info.events[id].des = newDes;
@@ -27,45 +30,49 @@ function onDesChange(main, info, setInfo, id, newDes) {
     setInfo(info); 
 }
 
-function Notes({app, len, info, setInfo, prompt, setPrompt, generate}) {
+function Notes({app, len, info, setInfo, prompt, setPrompt, generate, selected, setClicked}) {
     const [loading, setLoading] = useState(false)
-
+    const id = Object.entries(info.events).length;
     return(
-        <div className={styles.notesWrapper}>
+        <div 
+        className={styles.notesWrapper}
+        onClick = {() => setClicked(app)}
+        style={{height: 
+                    (len == 2)? (selected === "Notes") ? "73%" : 
+                    (!(selected === "All") && !(selected === "Notes") && (selected in listApps)) ? "5%" : 
+                        "39%" 
+                : "100%" }}>
             <div className={`${styles.notes} ${styles.up}`}
+                style = {{borderColor: (selected === "Notes") ? "rgb(50,173,230)" : ""}}
                 key={app}>
-                <div className={styles.top}>
-                    <button className={styles.editBtn}><img height="16px" src ="/delete.svg"/></button>
-                </div>
+                <div className={styles.top}/>
                 <hr className={styles.topBorder}/>
                 <div 
+                    contentEditable
+                    suppressContentEditableWarning
                     style={{margin:"8px 16px"}}>
                     <h1
-                        contentEditable
-                        suppressContentEditableWarning
                         onBlur={(e) => onTitleChange(true, info, setInfo, -1, e.target.innerText)}>
-                        {app}: {info.title}
+                        {info.title}
                     </h1>
                     <p 
-                        contentEditable
-                        suppressContentEditableWarning
                         onBlur={(e) => onDesChange(true, info, setInfo, -1, e.target.innerText)} 
                         style={{color:"lightgray"}}>
                         {info.description}
                     </p>
                 </div>
             </div>
-            <div style={{height: len == 1? "70.5vh" : "25vh"}} className={`${styles.notes} ${styles.middle}`}>
+            <div className={`${styles.notes} ${styles.middle}`}
+            style = {{borderColor: (selected === "Notes") ? "rgb(50,173,230)" : ""}}>
                 <div 
-                style={{margin:"8px 16px", overflowY:"auto"}} className={styles.events}>
+                contentEditable
+                suppressContentEditableWarning
+                style={{margin:"0px 16px 8px 16px", height:"100%", overflowY:"auto", fontSize: "11px", color:"lightgray", marginTop:"8px"}} className={styles.events}>
                     {info.events.map((event, index) => (
                         <div style={{marginTop:"8px"}} 
                         key={index} 
-                        className={styles.event}
-                        onClick={() => onClick(info, index)}>
+                        className={styles.event}>
                             <h3 
-                            contentEditable
-                            suppressContentEditableWarning
                             onBlur={(e) => onTitleChange(false, info, setInfo, index, e.target.innerText)}
                             >
                                 {event.title}
@@ -73,8 +80,6 @@ function Notes({app, len, info, setInfo, prompt, setPrompt, generate}) {
 
                             {event.des && <p 
                             style={{color:"lightgray"}}
-                            contentEditable
-                            suppressContentEditableWarning
                             onBlur={(e) => onDesChange(false, info, setInfo, index, e.target.innerText)}
                             >
                                 {event.des}
@@ -82,21 +87,37 @@ function Notes({app, len, info, setInfo, prompt, setPrompt, generate}) {
                             <hr className={styles.notesBorder}/>
                         </div>
                     ))}
+                    <div style={{ fontSize: "11px", color:"lightgray", marginTop:"8px"}} 
+                        className={styles.event}
+                        >
+                        <h3 
+                        contentEditable
+                        suppressContentEditableWarning
+                        onBlur={(e) => onTitleChange(false, info, setInfo, id, e.target.innerText)}
+                        >
+                        </h3>
+                        <p 
+                        style={{color:"lightgray"}}
+                        contentEditable
+                        suppressContentEditableWarning
+                        onBlur={(e) => onDesChange(false, info, setInfo, id, e.target.innerText)}
+                        >
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div className={`${styles.notes} ${styles.down}`}>
+            <div className={`${styles.notes} ${styles.down}`}
+            style = {{borderColor: (selected === "Notes") ? "rgb(50,173,230)" : ""}}>
                 <Input
                     generate = {generate}
                     info = {info}
                     setInfo = {setInfo}
                     prompt =  {prompt}
                     setPrompt = {setPrompt}
+                    loading = {loading}
                     setLoading = {setLoading}
                     app = {app}
                 />
-                {loading && (
-                    <p style={{marginLeft: "16px"}}>Loading ...</p>
-                )}
             </div>
         </div>
     )

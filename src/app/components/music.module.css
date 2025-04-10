@@ -1,5 +1,6 @@
 .notesWrapper{
     width: 100%; 
+    transition: 0.4s ease-in-out;
 }
 
 .notes {
@@ -12,6 +13,7 @@
     border: gray 1px solid;
     border-radius: 16px 16px 0 0;
     border-bottom: none;
+    max-height: 73px;
 }
 
 .middle{
@@ -19,7 +21,7 @@
     border-top: none;
     border-bottom: none;
     overflow: auto; 
-    height: 50%; 
+    height: 100%; 
 }
 
 .down{
@@ -50,7 +52,6 @@
 
 .top{
     display: flex;
-    justify-content: end;
     height: 24px; 
     border-radius: 16px 16px 0 0 ;
     padding-right: 8px;

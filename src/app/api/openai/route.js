@@ -37,7 +37,8 @@ export async function POST(req) {
                             "title": "Study Plan", 
                             "description": "This is a study plan for an interview",
                             "events": [
-                                { "title": "Review Notes", "des": "Look through notes taken during lecture."}
+                                { "title": "Review Notes", "des": "Look through notes taken during lecture."}, 
+                                { "title": "Relax", "des": "Deep breathing exercises."}
                             ]
                         }
                     },
@@ -67,18 +68,20 @@ export async function POST(req) {
                             "title": "Interview Timer", 
                             "description": "This is a series of timers for prepping",
                             "events": [
-                                { "title": "Wake up", "des": "8:00 AM"}
+                                { "title": "Wake up", "des": "7:00 AM"}, 
+                                { "title": "Review notes", "des": "8:00 AM"}
                             ]
                         }
                     }
                 }
 
                 RULES: 
-                - YOU MUST Make sure each app has at least 7 entries in "events". 
+                - YOU MUST Make sure each app has at least 5 entries in "events". 
                 - YOU MUST Make sure that "l", "m", and "r" have less than 2 apps, and that one of them has 2 apps. 
                 - YOU MUST Return the response in JSON format that can be parsed by JSON.parse().
                 - YOU MUST Try to get to 4 apps total. 
-                - YOU MUST For alarm, you must specify the time in the description (8:00 AM), and the activity in the title (Wake Up). 
+                - YOU MUST For alarm, ONLY give the time in des (8:00 AM), and the activity in the title (Wake Up). Follow the provided format for times. 
+                - DO NOT generate any other kinds of information for the alarm. 
                 - DO NOT put the json in an array. 
                 - DO NOT put a comma at the end of the "events" arrays. 
                 `

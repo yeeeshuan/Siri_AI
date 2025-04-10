@@ -1,10 +1,10 @@
 .tooltip {
     position: relative;
-    display: inline-block;
+    display: flex; 
     border-radius: 8px;
-    width: 2vw; 
-    height: 2vw; 
-    margin: 0.5vw; 
+    width: 2.5vw; 
+    height: 2.5vw; 
+    margin: 1vw;
     justify-content: center;
     align-items: center;
 }
@@ -19,7 +19,7 @@
     position: absolute;
     z-index: 1;
     bottom: 150%; 
-    left: 0%;
+    left: -25%;
     transform: translateY(-10%);
     opacity: 0;
     transition: opacity 0.3s;

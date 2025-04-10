@@ -2,19 +2,11 @@
 
 "use client";
 
-import Image from "next/image";
 import styles from "./page.module.css";
 import { useState } from "react";
 import GenAI from "./components/genAi";
 
-import NotesPage from "./components/notesPage";
-import ReminderPage from "./components/reminderPage";
-import MusicPage from "./components/musicPage";
-import TimerPage from "./components/timerPage";
-
 import App from "./components/app";
-
-import Notes from "./components/notes";
 
 require('dotenv').config();
 
@@ -36,64 +28,43 @@ export default function Home() {
   const [music, setMusic] = useState(false)
   const [notes, setNotes] = useState(false)
 
-  // Setting the info for each of the apps in the sidebar
-  const [remindersInfo, setRemindersInfo] = useState(null); 
-  const [alarmInfo, setAlarmInfo] = useState(null); 
-  const [musicInfo, setMusicInfo] = useState(null); 
-  const [noteInfo, setNoteInfo] = useState(null); 
-
   // Setting the info for the left, middle, and right for the initial generation
   const [left, setLeft] = useState(null); 
   const [middle, setMiddle] = useState(null); 
   const [right, setRight] = useState(null); 
 
+  const [selected, setSelected] = useState("All")
+
+  function setClick(app){
+      setSelected(app)
+  }
+
   // Setting which app is clicked in the sidebar
   function onClick(app){
     if (app === "All"){
-        setAll(true)
-        setReminders(false)
-        setAlarm(false)
-        setMusic(false)
-        setNotes(false)
+      setSelected("All")
     }
 
     else if (app === "Alarm"){
-      setAll(false)
-      setReminders(false)
-      setAlarm(true)
-      setMusic(false)
-      setNotes(false)
+      setSelected("Alarm")
     }
 
     else if (app === "Reminders"){
-      setAll(false)
-      setReminders(true)
-      setAlarm(false)
-      setMusic(false)
-      setNotes(false)
+      setSelected("Reminders")
     }
 
     else if (app === "Music"){
-      setAll(false)
-      setReminders(false)
-      setAlarm(false)
-      setMusic(true)
-      setNotes(false)
+      setSelected("Music")
     }
 
     if (app == "Notes"){
-      setAll(false); 
-      setReminders(false)
-      setAlarm(false)
-      setMusic(false)
-      setNotes(true); 
+      setSelected("Notes")
     }
-
   }
 
   return (
-      <main className={styles.main}>
-          {all && (
+      <main className={`${loading? styles.loadingStatus : styles.main}`}>
+          {/* {all && ( */}
             <GenAI 
             setLoading = {setLoading} loading = {loading}
             setNodes = {setNodes} nodes = {nodes}
@@ -101,38 +72,15 @@ export default function Home() {
             setLeft={setLeft} left={left}
             setMiddle={setMiddle} middle={middle}
             setRight={setRight} right={right}
-            setAlarmInfo = {setAlarmInfo}
-            setRemindersInfo = {setRemindersInfo}
-            setMusicInfo = {setMusicInfo}
-            setNoteInfo={setNoteInfo}
+            all = {all}
+            reminders = {reminders}
+            alarm = {alarm}
+            music = {music}
+            notes = {notes}
+            selected = {selected}
+            setClick = {setClick}
+
             />
-          )}
-
-          {reminders && (
-            <>
-              <ReminderPage app = {"Reminders"} info={remindersInfo}/>
-            </>
-          )}
-
-          {alarm && (
-            <>
-              <TimerPage app = {"Timer"} info={alarmInfo}/>
-            </>
-          )}
-
-          {music && (   
-            <>
-              <MusicPage app = {"Music"} info={musicInfo}/>
-            </>
- 
-          )}
-
-          {notes && (
-            <>
-              <NotesPage app = {"Notes"} info={noteInfo}/>
-            </>
-
-          )}
 
         {nodes && (
         <div style={{display:"flex", justifyContent:"center"}}>
@@ -144,7 +92,7 @@ export default function Home() {
               >
                 <App 
                 app = {app}
-                path =  "/spotify.svg"
+                path =  "/music.svg"
                 /> 
               </div>:
               app === "Reminders" ? 
@@ -162,7 +110,7 @@ export default function Home() {
               >
                 <App 
                 app = {app}
-                path =  "/timer.webp"
+                path =  "/timer.svg"
                 /> 
               </div>:
               app === "Notes" ? 

@@ -29,7 +29,7 @@
     border-top: none;
     border-bottom: none;
     overflow: auto; 
-    height: 50%; 
+    height: 100%; 
 }
 
 .down{
@@ -55,7 +55,6 @@
 
 .top{
     display: flex;
-    justify-content: end;
     height: 24px; 
     border-radius: 16px 16px 0 0 ;
     padding-right: 8px;
@@ -86,4 +85,5 @@
     border-radius: 16px;
     border: 1px dashed white; 
     margin-right: 8px;
+    background: none;
 }

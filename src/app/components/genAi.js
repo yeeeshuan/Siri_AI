@@ -7,12 +7,13 @@ import styles from "../page.module.css"
 import Image from 'next/image'
 import Node from "./node";
 import { useState, useRef, useEffect } from "react";
+import { Akatab } from "next/font/google";
 
 require('dotenv').config();
 
 
 // Generate function for calling the openAI API to parse information into columns and the correct apps. 
-async function generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRight, setApps, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo) {
+async function generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRight, setApps) {
 
     console.log(prompt); 
 
@@ -52,10 +53,6 @@ async function generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRig
             setRight(res.r)
         }
 
-        parseApps(res.l, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo)
-        parseApps(res.m, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo)
-        parseApps(res.r, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo)
-
         const allApps = [
             "All",
             ...Object.keys(res.l || {}),
@@ -74,32 +71,9 @@ async function generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRig
     }
 }
 
-// Function for looking through the JSON and parsing information into the correct apps. 
-function parseApps(temp, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo){
-
-    console.log("TEMP", temp); 
-
-    if ("Alarm" in temp){
-        setAlarmInfo(temp.Alarm)
-    }
-
-    if ("Music" in temp){
-        setMusicInfo(temp.Music)
-    }
-
-    if ("Reminders" in temp){
-        setRemindersInfo(temp.Reminders)
-    }
-
-    if ("Notes" in temp){
-        setNoteInfo(temp.Notes)
-    }
-}
-
-
 // Testing function with sample nodes
 // Named after my GOAT, lebron
-async function lebron(nodes, setNodes, setLeft, setMiddle, setRight, setApps, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo){
+async function lebron(nodes, setNodes, setLeft, setMiddle, setRight, setApps){
     const temp = await JSON.parse(nodes); 
 
     console.log("LEBRON", temp); 
@@ -108,11 +82,6 @@ async function lebron(nodes, setNodes, setLeft, setMiddle, setRight, setApps, se
     setLeft(temp.l)
     setMiddle(temp.m)
     setRight(temp.r)
-
-
-    parseApps(temp.l, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo)
-    parseApps(temp.m, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo)
-    parseApps(temp.r, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo)
 
     const allApps = [
         "All",
@@ -131,8 +100,10 @@ function GenAI({
         setLeft, left, 
         setMiddle, middle, 
         setRight, right, 
-        setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo
+        selected, setClick
     }) {
+
+    const [prompt, setPrompt] = useState(""); 
 
     // event is a temporary const for a sample json to test 
     // event is what nodes will look like after generation is called. 
@@ -143,16 +114,14 @@ function GenAI({
         {
             "Notes":
             {
-                "title": "Interview Preparation Notes", 
-                "description": "This is a compilation of notes for interview prep",
+                "title": "Fire Starter",
+                "description": "Detailed steps to start a fire",
                 "events": [
-                    { "title": "Research Company", "des": "Gather information about the company's values and culture."},
-                    { "title": "Review Common Questions", "des": "Study common interview questions and answers."},
-                    { "title": "Prepare Questions to Ask", "des": "List insightful questions to ask the interviewer."},
-                    { "title": "Update Resume", "des": "Revise and optimize your resume for the role."},
-                    { "title": "Practice Responses", "des": "Rehearse answers to potential interview questions."},
-                    { "title": "Dress Code Research", "des": "Find out the appropriate attire for the interview."},
-                    { "title": "Plan Journey", "des": "Outline directions and travel time to the interview location."}
+                    { "title": "Gather materials", "des": "Dry leaves, twigs, and small sticks"},
+                    { "title": "Prepare the area", "des": "Clear away any debris or flammable items"},
+                    { "title": "Build a fire pit", "des": "Create a ring of rocks to contain the fire"},
+                    { "title": "Arrange materials", "des": "Stack smaller materials first, then larger ones"},
+                    { "title": "Light the fire", "des": "Use matches or a lighter to ignite the materials"}
                 ]
             }
         },
@@ -160,16 +129,14 @@ function GenAI({
         {
             "Reminders": 
             {
-                "title": "Interview Preparation Reminders", 
-                "description": "This is a list of important reminders for the interview",
+                "title": "Fire Prep List",
+                "description": "List of reminders for starting a fire",
                 "events": [
-                    { "title": "Get Materials Ready", "des": "Prepare documents and items needed for the interview."},
-                    { "title": "Practice Mock Interview", "des": "Set up a time for a mock interview session."},
-                    { "title": "Sleep Early", "des": "Get a good night's rest before the interview."},
-                    { "title": "Set Alarm", "des": "Wake up early to prepare for travelling."},
-                    { "title": "Confirm Interview Time", "des": "Double-check the scheduled time for the interview."},
-                    { "title": "Double Check Attire", "des": "Ensure interview clothing is clean and ready."},
-                    { "title": "Pack a Bag", "des": "Gather everything needed for the day in one bag."}
+                    { "title": "Check wind direction", "des": "Ensure it blows away from structures"},
+                    { "title": "Have water nearby", "des": "For safety in case of emergencies"},
+                    { "title": "Notify someone", "des": "Inform someone of your location and activity"},
+                    { "title": "Monitor the fire", "des": "Keep an eye on it until completely extinguished"},
+                    { "title": "Clean up", "des": "Dispose of ashes properly"}
                 ]
             }
         },
@@ -177,30 +144,26 @@ function GenAI({
         {
             "Music":
             {
-                "title": "Focus and Motivation Playlist", 
-                "description": "This is a playlist to energize and focus before the interview",
+                "title": "Fire Starter Beats",
+                "description": "Playlist to set the mood for starting a fire",
                 "events": [
-                    { "title": "Eye of the Tiger", "des": "Survivor"},
-                    { "title": "Lose Yourself", "des": "Eminem"},
-                    { "title": "Stronger", "des": "Kanye West"},
-                    { "title": "Can't Stop the Feeling", "des": "Justin Timberlake"},
-                    { "title": "Formation", "des": "Beyoncé"},
-                    { "title": "Hall of Fame", "des": "The Script ft. will.i.am"},
-                    { "title": "We Will Rock You", "des": "Queen"}
+                    { "title": "Ring of Fire", "des": "Johnny Cash"},
+                    { "title": "Light My Fire", "des": "The Doors"},
+                    { "title": "Burning Love", "des": "Elvis Presley"},
+                    { "title": "We Didn't Start the Fire", "des": "Billy Joel"},
+                    { "title": "Fire", "des": "Jimi Hendrix"}
                 ]
             }, 
             "Alarm":
             {
-                "title": "Interview Day Alarm", 
-                "description": "This alarm is set for 8:00 AM",
+                "title": "Fire Time Alarms",
+                "description": "Timers for each step of starting a fire",
                 "events": [
-                    { "title": "Wake Up", "des": "8:00 AM"},
-                    { "title": "Remind to Eat Breakfast", "des": "8:30 AM"},
-                    { "title": "Final Review Time", "des": "9:00 AM"},
-                    { "title": "Prepare to Leave", "des": "10:00 AM"},
-                    { "title": "Travel Time Alert", "des": "10:15 AM"},
-                    { "title": "Get to Location", "des": "10:45 AM"},
-                    { "title": "Start of Interview", "des": "11:00 AM"}
+                    { "title": "Gather materials", "des": "10:00 AM"},
+                    { "title": "Prepare the area", "des": "10:30 AM"},
+                    { "title": "Build a fire pit", "des": "11:00 AM"},
+                    { "title": "Arrange materials", "des": "11:30 AM"},
+                    { "title": "Light the fire", "des": "12:00 PM"}
                 ]
             }
         }
@@ -208,13 +171,13 @@ function GenAI({
     `
     )
 
-    // useEffect(() => {
-    //     if (!nodes) {
-    //         lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo);
-    //     }
-    // }, [nodes]);
+    const [ai, setAi] = useState(false); 
 
-    const [prompt, setPrompt] = useState(""); 
+    useEffect(() => {
+        if (!nodes) {
+            lebron(event, setNodes, setLeft, setMiddle, setRight, setApps);
+        }
+    }, [nodes]);
 
     const handleInputChange = (event) => {
         console.log("PROMPT", prompt)
@@ -222,64 +185,118 @@ function GenAI({
     };
   
     return (
-        <div style={{padding:"1vw 2vw"}}>
-        {!nodes && (
-            <div style={{display: "flex", justifyContent: "end"}}>
+        <>
+        {/* Prompt Box */}
+        <div style={{display: "flex", justifyContent: "end", padding:"1vh 1vh", overflowY:"hidden"}}>
+            {nodes && (
+                    <div className={`${styles.genAI} ${styles.loaded}`}
+                    onClick = {() => setAi(true)}
+                    >
+                        <div style={{display:"flex", justifyContent:"center", height: "26px"}}>
+                            <img src="/apple.svg"/>
+                        </div>
+                    </div>   
+            )}
+            {(ai || !nodes) && (
                 <div className={styles.genAI}>
-                    <h2>What can I help you with?</h2>
-                    <div style={{display:"flex", justifyContent:"center"}}>
-                        <div className={styles.form}>
-                            <textarea className={styles.prompt} 
-                            id="prompt"
-                            onChange={handleInputChange}/>
-                            <div style={{display:"flex", alignItems:"center", height: "26px"}}>
-                                <button 
-                                    className={`${styles.upload} ${prompt.length ? styles.uploadActive : ''}`}
-                                    onClick={() => generate(
-                                        setLoading, 
-                                        setNodes, 
-                                        prompt, 
-                                        setLeft, setMiddle, setRight, 
-                                        setApps, 
-                                        setAlarmInfo, setMusicInfo, setRemindersInfo, setNoteInfo
-                                        )}> 
-                                </button>
-                            </div>
-                        </div>   
+                    <div style={{display:"flex", justifyContent:"end", margin:"0.5rem 0.5rem"}}>
+                        <button onClick = {() => setAi(false)} 
+                        className={styles.editBtn}>
+                            <img height="16px" src ="/delete.svg"/>
+                        </button>
                     </div>
-                    {loading && (
-                        <p style={{color:"white", marginTop:"20px"}}>Loading ...</p>
-                    )}
-                </div>     
+                    <div className={styles.form}>
+                        <textarea 
+                        className={`${styles.prompt} ${loading ? styles.loadingText : ""}`}
+                        disabled={loading}
+                        placeholder="What can I help you with?"
+                        id="prompt"
+                        onChange={handleInputChange}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" && !e.shiftKey) {
+                                e.preventDefault(); 
+                                generate(
+                                  setLoading, 
+                                  setNodes, 
+                                  prompt, 
+                                  setLeft, setMiddle, setRight, 
+                                  setApps
+                                );
+                            }
+                        }}/>
+                        <div style={{display:"flex", alignItems:"center", height: "26px"}}>
+                            <button 
+                                className={`${styles.upload} ${(prompt.length || loading) ? styles.uploadActive : ''}`}
+                                onClick={() => generate(
+                                    setLoading, 
+                                    setNodes, 
+                                    prompt, 
+                                    setLeft, setMiddle, setRight, 
+                                    setApps
+                            )}> 
+                            <img width="80%" src="/upload.svg"/>
+                            </button>
+                        </div> 
+                    </div>
+                </div>  
+            )}
+        </div>
+
+        <div style={{padding:"0 2vw"}}>
+            <div style={{display: "flex", justifyContent: "end"}}>
+               
             </div>
-        )} 
         {nodes?.m ?(
-            <div style={{display:"flex", justifyContent:"end"}}>
-                <div style={{ width:"100%", display:"flex", justifyContent:"space-between"}}>
-                    <div className={styles.colThird}>
+            <div 
+            style={{display: "flex", justifyContent:"end"}}>
+                <div style={{ width:"100%", display: "flex", justifyContent:"space-between"}}>
+                    <div className={`${styles.colThird} ${(selected in left) ? styles.expanded : ''}`}
+                    style = {{
+                        width : ((selected != "All" && !(selected in left)) ? "12%" : ' ')
+                    }}
+                    >
                         {nodes.l && left && Object.entries(left).map(([key, category]) => (
                             < Node
                                 app = {key}
                                 category = {category}
                                 len = {Object.keys(left).length}
+                                selected = {selected}
+                                left = {left}
+                                setClicked = {setClick}
                             />
                         ))}
                     </div>
-                    <div className={styles.colThird}>
+                    <div 
+                    className={`${styles.colThird} ${(selected in middle) ? styles.expanded : ''}`}
+                    style = {{
+                        width : ((selected != "All" && !(selected in middle)) ? "12%" : ' '),
+                        margin: "0 4px"
+                    }}
+                    >
                         {nodes.m && middle && Object.entries(middle).map(([key, category]) => (
                             < Node
                                 app = {key}
                                 category = {category}
                                 len = {Object.keys(middle).length}
+                                selected = {selected}
+                                listApps = {middle}
+                                setClicked = {setClick}
                             />
                         ))}
                     </div>
-                    <div className={styles.colThird}>
+                    <div className={`${styles.colThird} ${(selected in right) ? styles.expanded : ''}`}
+                    style = {{
+                        width : ((selected != "All" && !(selected in right)) ? "12%" : ' ')
+                    }}
+                    >
                         {nodes.r && right && Object.entries(right).map(([key, category]) => (
                             < Node
                                 app = {key}
                                 category = {category}
                                 len = {Object.keys(right).length}
+                                selected = {selected}
+                                listApps = {right}
+                                setClicked = {setClick}
                             />
                         ))}
                     </div>
@@ -312,6 +329,7 @@ function GenAI({
         </>
     )}
     </div>
+    </>
 )}
 
 export default GenAI;

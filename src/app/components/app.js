@@ -5,7 +5,7 @@ function App({app, path}) {
 
   return (
     <div className={styles.tooltip}>
-        <img width={"125%"} src={path}/>
+        <img width={"150%"} src={path}/>
         <span className={styles.tooltipText}>{app}</span>
     </div>
   );

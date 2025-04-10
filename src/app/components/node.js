@@ -46,7 +46,7 @@ async function regen(setLoading, info, setInfo, prompt, app) {
     }
 }
 
-function Node({app, category, len}) {
+function Node({app, category, len, selected, listApps, setClicked}) {
 
     const [prompt, setPrompt] = useState(""); 
     const [loading, setLoading] = useState(false)
@@ -69,6 +69,9 @@ function Node({app, category, len}) {
                 prompt = {prompt}
                 setPrompt = {setPrompt}
                 generate = {regen}
+                selected = {selected}
+                listApps = {listApps}
+                setClicked = {setClicked}
             />
         ): app === "Reminders"?(
             <Reminder
@@ -79,6 +82,9 @@ function Node({app, category, len}) {
                 prompt = {prompt}
                 setPrompt = {setPrompt}
                 generate = {regen}
+                selected = {selected}
+                listApps = {listApps}
+                setClicked = {setClicked}
             />
         ): app === "Music"?(
             <Music
@@ -89,6 +95,9 @@ function Node({app, category, len}) {
                 prompt = {prompt}
                 setPrompt = {setPrompt}
                 generate = {regen}
+                selected = {selected}
+                listApps = {listApps}
+                setClicked = {setClicked}
             />
         ): app === "Alarm"?(
             <Alarm
@@ -99,6 +108,9 @@ function Node({app, category, len}) {
                 prompt = {prompt}
                 setPrompt = {setPrompt}
                 generate = {regen}
+                selected = {selected}
+                listApps = {listApps}
+                setClicked = {setClicked}
             />
         ):(
             <div 

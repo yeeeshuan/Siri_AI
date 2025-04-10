@@ -1,31 +1,37 @@
 .notesWrapper{
     width: 100%; 
+    transition: 0.4s ease-in-out;
 }
 
 .notes {
     background-color: var(--dark-gray);
     box-sizing: border-box;
     overflow: hidden;
+    width: 100%; 
 }
 
 .up {
     border: gray 1px solid;
     border-radius: 16px 16px 0 0;
     border-bottom: none;
+    width: 100%; 
+    max-height: 90px;
 }
 
 .middle{
     border: gray 1px solid;
     border-top: none;
     border-bottom: none;
-    overflow: auto; 
-    height: 50%; 
+    overflow: none; 
+    height: 100%; 
+    width: 100%; 
 }
 
 .down{
     border: gray 1px solid;
     border-radius: 0 0 16px 16px;
     border-top: none;
+    width: 100%; 
 }
 
 .large {
@@ -41,11 +47,11 @@
     margin: 1vw 2vw; 
     border-radius: 16px;
     border: 1px solid gray;
+    overflow-y: hidden;
 }
 
 .top{
     display: flex;
-    justify-content: end;
     background-color: #FDC801; 
     height: 24px; 
     border-radius: 16px 16px 0 0 ;

@@ -4,30 +4,38 @@ import Input from "./input";
 import Toggle from "./toggle";
 import { useState } from "react";
 
-function Timer({app, len, info, setInfo, prompt, setPrompt, generate}) {
+function Timer({app, len, info, setInfo, prompt, setPrompt, generate, selected, listApps, setClicked}) {
     const [loading, setLoading] = useState(false)
 
     return(
-        <div className={styles.notesWrapper}>
+        <div 
+            className={styles.notesWrapper}
+            onClick = {() => setClicked(app)}
+            style={{height: 
+                (len == 2)? (selected === "Alarm") ? "73%" : 
+                    (!(selected === "All") && (selected in listApps)) ? "5%" : 
+                        "37%" : 
+                "100%"}}>
             <div className={`${styles.notes} ${styles.up}`}
+                style = {{borderColor: (selected === "Alarm") ? "rgb(50,173,230)" : ""}}
                 key={app}>
-                <div className={styles.top}>
-                    <button className={styles.editBtn}><img height="16px" src ="/delete.svg"/></button>
-                </div>
+                <div className={styles.top}/>
                 <div 
                     style={{margin:"8px 16px"}}>
                     <h1>{app}: {info.title}</h1>
                     <p style={{color:"lightgray"}}>{info.description}</p>
                 </div>
             </div>
-            <div style={{height: len == 1? "70vh" : "26.5vh"}} className={`${styles.notes} ${styles.middle}`}>
+            <div 
+            className={`${styles.notes} ${styles.middle}`}
+            style = {{borderColor: (selected === "Alarm") ? "rgb(50,173,230)" : ""}}>
                 <div className={styles.events}>
                     {info.events.map((event, index) => (
                         <div>
                             <div style={{marginTop:"8px"}} key={index} className={styles.event}>
                                 <div style={{display:"flex", justifyContent:"space-between"}}>
                                     <div>
-                                        <h3 className={styles.time}>{event.des}</h3>
+                                        <h3 className={styles.time} style={{height:"24px", overflowY:"hidden"}}>{event.des}</h3>
                                         {event.des && <p className={styles.des}>{event.title}</p>}
                                     </div>
                                     <Toggle/>
@@ -38,19 +46,18 @@ function Timer({app, len, info, setInfo, prompt, setPrompt, generate}) {
                     ))}
                 </div>
             </div>
-             <div className={`${styles.notes} ${styles.down}`}>
+             <div className={`${styles.notes} ${styles.down}`}
+            style = {{borderColor: (selected === "Alarm") ? "rgb(50,173,230)" : ""}}>
                 <Input
                     generate = {generate}
                     info = {info}
                     setInfo = {setInfo}
                     prompt =  {prompt}
                     setPrompt = {setPrompt}
+                    loading = {loading}
                     setLoading = {setLoading}
                     app = {app}
                 />
-                {loading && (
-                    <p style={{marginLeft: "16px"}}>Loading ...</p>
-                )}
             </div>
         </div>
     )

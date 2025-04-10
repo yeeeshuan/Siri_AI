@@ -2,17 +2,7 @@
 import styles from "../page.module.css"
 import { useState } from "react";
 
-function Input({generate, info, setInfo, prompt, setPrompt, setLoading, app}) {
-
-    console.log("PROMPT", prompt)
-
-    const handleKeyDown = (event) => {
-        console.log(event.key); 
-        if (event.key === 'Enter' && (event.metaKey || event.ctrlKey) && prompt.length != 0) {
-            console.log("ENTER PRESSED"); 
-            generate(setEvents, setLoading, setNodes, prompt); 
-        }
-    };
+function Input({generate, info, setInfo, prompt, setPrompt, loading, setLoading, app}) {
 
     const handleInputChange = (event) => {
         setPrompt(event.target.value); // Update prompt state as user types
@@ -21,16 +11,22 @@ function Input({generate, info, setInfo, prompt, setPrompt, setLoading, app}) {
     return(
         <div className={styles.inputContainer}>
         <div className={styles.rForm}>
-            <textarea className={styles.prompt} 
-            onKeyDown={handleKeyDown}
+            <textarea 
+            className={`${styles.prompt} ${loading ? styles.loadingText : ""}`}
+            disabled={loading}
+            onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault(); 
+                    generate(setLoading, info, setInfo, prompt, app)
+                }
+            }}
             onChange={handleInputChange}
-            // onClick={generate}
             id="prompt"
             placeholder="Describe your change"/>
              <button 
                 onClick={()=>generate(setLoading, info, setInfo, prompt, app)}
                 className={`${styles.upload} ${prompt.length ? styles.uploadActive : ''}`}> 
-                <img height="16px" width="19px" src="/regen.svg"/>
+                <img width="80%" src="/upload.svg"/>
             </button>
         </div>
         </div>
