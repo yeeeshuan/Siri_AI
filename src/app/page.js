@@ -21,13 +21,6 @@ export default function Home() {
   // Seting the nodes for the generated prompt
   const [nodes, setNodes] = useState(null)
 
-  // Setting the toggles on the sidebar
-  const [all, setAll] = useState(true); 
-  const [reminders, setReminders] = useState(false)
-  const [alarm, setAlarm] = useState(false)
-  const [music, setMusic] = useState(false)
-  const [notes, setNotes] = useState(false)
-
   // Setting the info for the left, middle, and right for the initial generation
   const [left, setLeft] = useState(null); 
   const [middle, setMiddle] = useState(null); 
@@ -36,7 +29,11 @@ export default function Home() {
   const [selected, setSelected] = useState("All")
 
   function setClick(app){
+    if (selected === app){
+      setSelected("All")
+    } else {
       setSelected(app)
+    }
   }
 
   // Setting which app is clicked in the sidebar
@@ -72,11 +69,6 @@ export default function Home() {
             setLeft={setLeft} left={left}
             setMiddle={setMiddle} middle={middle}
             setRight={setRight} right={right}
-            all = {all}
-            reminders = {reminders}
-            alarm = {alarm}
-            music = {music}
-            notes = {notes}
             selected = {selected}
             setClick = {setClick}
 

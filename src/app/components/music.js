@@ -11,7 +11,7 @@ function Music({app, len, info, setInfo, prompt, setPrompt, generate, selected, 
         <div className={styles.notesWrapper}
         onClick = {() => setClicked(app)}
         style={{height: 
-                (len == 2)? (selected === "Music") ? "73%" : 
+                (len == 2)? (selected === "Music") ? "70%" : 
                     (!(selected === "All") && !(selected === "Music") && (selected in listApps)) ? "5%" : 
                         "37%" 
                 : "100%" }}>

@@ -73,6 +73,7 @@ function Notes({app, len, info, setInfo, prompt, setPrompt, generate, selected, 
                         key={index} 
                         className={styles.event}>
                             <h3 
+                            style={{color:"white"}}
                             onBlur={(e) => onTitleChange(false, info, setInfo, index, e.target.innerText)}
                             >
                                 {event.title}
@@ -84,7 +85,6 @@ function Notes({app, len, info, setInfo, prompt, setPrompt, generate, selected, 
                             >
                                 {event.des}
                             </p>}
-                            <hr className={styles.notesBorder}/>
                         </div>
                     ))}
                     <div style={{ fontSize: "11px", color:"lightgray", marginTop:"8px"}} 

@@ -171,17 +171,28 @@ function GenAI({
     `
     )
 
+    const examples = [
+        "Help me bake a cake",
+        "Help me study for my midterm",
+        "Teach me how to use iMessage"
+      ];
+
     const [ai, setAi] = useState(false); 
 
-    useEffect(() => {
-        if (!nodes) {
-            lebron(event, setNodes, setLeft, setMiddle, setRight, setApps);
-        }
-    }, [nodes]);
+    // useEffect(() => {
+    //     if (!nodes) {
+    //         lebron(event, setNodes, setLeft, setMiddle, setRight, setApps);
+    //     }
+    // }, [nodes]);
 
     const handleInputChange = (event) => {
         console.log("PROMPT", prompt)
         setPrompt(event.target.value); // Update prompt state as user types
+    };
+
+    const exampleClick = (e) => {
+        const text = e.target?.innerText || e.target?.textContent;
+        if (text) setPrompt(text);
     };
   
     return (
@@ -209,7 +220,7 @@ function GenAI({
                         <textarea 
                         className={`${styles.prompt} ${loading ? styles.loadingText : ""}`}
                         disabled={loading}
-                        placeholder="What can I help you with?"
+                        placeholder={prompt.length == 0? "What can I help you with?" : prompt}
                         id="prompt"
                         onChange={handleInputChange}
                         onKeyDown={(e) => {
@@ -238,6 +249,14 @@ function GenAI({
                             </button>
                         </div> 
                     </div>
+                    <div className={styles.examples}>
+                    <h3>Suggested by Apple AI</h3>
+                    {examples.map((text, index) => (
+                        <p key={index}>
+                        <a className={styles.rainbow} onClick={exampleClick}>{text}</a>
+                        </p>
+                    ))}
+                    </div>
                 </div>  
             )}
         </div>
@@ -246,15 +265,11 @@ function GenAI({
             <div style={{display: "flex", justifyContent: "end"}}>
                
             </div>
-        {nodes?.m ?(
+        {nodes?.m && (
             <div 
             style={{display: "flex", justifyContent:"end"}}>
                 <div style={{ width:"100%", display: "flex", justifyContent:"space-between"}}>
-                    <div className={`${styles.colThird} ${(selected in left) ? styles.expanded : ''}`}
-                    style = {{
-                        width : ((selected != "All" && !(selected in left)) ? "12%" : ' ')
-                    }}
-                    >
+                    <div className={styles.colThird}>
                         {nodes.l && left && Object.entries(left).map(([key, category]) => (
                             < Node
                                 app = {key}
@@ -266,13 +281,7 @@ function GenAI({
                             />
                         ))}
                     </div>
-                    <div 
-                    className={`${styles.colThird} ${(selected in middle) ? styles.expanded : ''}`}
-                    style = {{
-                        width : ((selected != "All" && !(selected in middle)) ? "12%" : ' '),
-                        margin: "0 4px"
-                    }}
-                    >
+                    <div className={styles.colThird}>
                         {nodes.m && middle && Object.entries(middle).map(([key, category]) => (
                             < Node
                                 app = {key}
@@ -284,11 +293,7 @@ function GenAI({
                             />
                         ))}
                     </div>
-                    <div className={`${styles.colThird} ${(selected in right) ? styles.expanded : ''}`}
-                    style = {{
-                        width : ((selected != "All" && !(selected in right)) ? "12%" : ' ')
-                    }}
-                    >
+                    <div className={styles.colThird}>
                         {nodes.r && right && Object.entries(right).map(([key, category]) => (
                             < Node
                                 app = {key}
@@ -302,31 +307,6 @@ function GenAI({
                     </div>
                 </div>
             </div>
-    ):(
-        <>
-            <div style={{display:"flex", justifyContent:"end"}}>
-            <div style={{ width:"100%", display:"flex", justifyContent:"space-between"}}>
-                <div style={{width:"49.5%"}}>
-                    {nodes && left && Object.entries(left).map(([key, category]) => (
-                        < Node
-                            app = {key}
-                            category = {category}
-                            len = {Object.keys(nodes.l).length}
-                        />
-                    ))}
-                </div>
-                <div style={{width:"49.5%"}}>
-                    {nodes && right && Object.entries(right).map(([key, category]) => (
-                        < Node
-                            app = {key}
-                            category = {category}
-                            len = {Object.keys(nodes.r).length}
-                        />
-                    ))}
-                </div>
-            </div>
-        </div>
-        </>
     )}
     </div>
     </>

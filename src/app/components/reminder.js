@@ -19,8 +19,6 @@ function Reminder({app, len, info, setInfo, prompt, setPrompt, generate, selecte
                 key={app}>
                 <div className={styles.top}/>
                 <div 
-                contentEditable
-                suppressContentEditableWarning
                 style={{margin:"0 16px 8px 16px"}}>
                     <h1
                         className={styles.title}>
@@ -36,8 +34,6 @@ function Reminder({app, len, info, setInfo, prompt, setPrompt, generate, selecte
                 </div>
             </div>
             <div 
-            contentEditable
-            suppressContentEditableWarning
             className={`${styles.notes} ${styles.middle}`}
             style = {{borderColor: (selected === "Reminders") ? "rgb(50,173,230)" : ""}}>
                 <div style={{margin:"0px 16px", overflowY:"auto"}} className={styles.events}>
@@ -58,7 +54,6 @@ function Reminder({app, len, info, setInfo, prompt, setPrompt, generate, selecte
                                 >
                                     {event.des}
                                 </p>}
-                                <hr className={styles.notesBorder}/>
                             </div>
                         </div>
                     ))}

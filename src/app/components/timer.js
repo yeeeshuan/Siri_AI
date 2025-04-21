@@ -12,7 +12,7 @@ function Timer({app, len, info, setInfo, prompt, setPrompt, generate, selected, 
             className={styles.notesWrapper}
             onClick = {() => setClicked(app)}
             style={{height: 
-                (len == 2)? (selected === "Alarm") ? "73%" : 
+                (len == 2)? (selected === "Alarm") ? "70%" : 
                     (!(selected === "All") && (selected in listApps)) ? "5%" : 
                         "37%" : 
                 "100%"}}>
