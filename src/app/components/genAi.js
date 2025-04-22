@@ -13,7 +13,7 @@ require('dotenv').config();
 
 
 // Generate function for calling the openAI API to parse information into columns and the correct apps. 
-async function generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRight, setApps) {
+async function generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRight, setApps, setExtra, setAi) {
 
     console.log(prompt); 
 
@@ -53,6 +53,10 @@ async function generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRig
             setRight(res.r)
         }
 
+        if (res.e){
+            setExtra(res.e)
+        }
+
         const allApps = [
             "All",
             ...Object.keys(res.l || {}),
@@ -67,13 +71,14 @@ async function generate(setLoading, setNodes, prompt, setLeft, setMiddle, setRig
         console.error('Error:', error);
     } finally {
         console.log("done");
+        setAi(false); 
         setLoading(false); // Set loading state to false once processing is done
     }
 }
 
 // Testing function with sample nodes
 // Named after my GOAT, lebron
-async function lebron(nodes, setNodes, setLeft, setMiddle, setRight, setApps){
+async function lebron(nodes, setNodes, setLeft, setMiddle, setRight, setApps, setExtra, setExtraAdd){
     const temp = await JSON.parse(nodes); 
 
     console.log("LEBRON", temp); 
@@ -82,6 +87,7 @@ async function lebron(nodes, setNodes, setLeft, setMiddle, setRight, setApps){
     setLeft(temp.l)
     setMiddle(temp.m)
     setRight(temp.r)
+    setExtra(temp.e)
 
     const allApps = [
         "All",
@@ -96,10 +102,11 @@ async function lebron(nodes, setNodes, setLeft, setMiddle, setRight, setApps){
 function GenAI({
         setLoading, loading, 
         setNodes, nodes, 
-        setApps, 
+        setApps, apps,
         setLeft, left, 
         setMiddle, middle, 
         setRight, right, 
+        setExtra, extra,
         selected, setClick
     }) {
 
@@ -166,6 +173,21 @@ function GenAI({
                     { "title": "Light the fire", "des": "12:00 PM"}
                 ]
             }
+        }, 
+        "e":
+        {
+            "Safari":
+            {
+                "title": "Fire Starter Beats",
+                "description": "Playlist to set the mood for starting a fire",
+                "events": [
+                    { "title": "Ring of Fire", "des": "Johnny Cash"},
+                    { "title": "Light My Fire", "des": "The Doors"},
+                    { "title": "Burning Love", "des": "Elvis Presley"},
+                    { "title": "We Didn't Start the Fire", "des": "Billy Joel"},
+                    { "title": "Fire", "des": "Jimi Hendrix"}
+                ]
+            }
         }
     }
     `
@@ -178,12 +200,14 @@ function GenAI({
       ];
 
     const [ai, setAi] = useState(false); 
+    const [show, setShow] = useState(false); 
+    const [showExtra, setShowExtra]  = useState(true)
 
-    // useEffect(() => {
-    //     if (!nodes) {
-    //         lebron(event, setNodes, setLeft, setMiddle, setRight, setApps);
-    //     }
-    // }, [nodes]);
+    useEffect(() => {
+        if (!nodes) {
+            lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setExtra);
+        }
+    }, [nodes]);
 
     const handleInputChange = (event) => {
         console.log("PROMPT", prompt)
@@ -194,11 +218,23 @@ function GenAI({
         const text = e.target?.innerText || e.target?.textContent;
         if (text) setPrompt(text);
     };
+
+    function extraClick(){
+        const toAdd = Object.keys(nodes.e)
+        const temp = [...apps, ...toAdd];
+
+        console.log("TEMP", temp)
+
+        setApps(temp);
+
+        setShowExtra(false)
+
+    }
   
     return (
         <>
         {/* Prompt Box */}
-        <div style={{display: "flex", justifyContent: "end", padding:"1vh 1vh", overflowY:"hidden"}}>
+        <div style={{display: "flex", justifyContent: "end", padding:"1vh 1vh", overflowX:"hidden", overflowY:"hidden"}}>
             {nodes && (
                     <div className={`${styles.genAI} ${styles.loaded}`}
                     onClick = {() => setAi(true)}
@@ -231,7 +267,9 @@ function GenAI({
                                   setNodes, 
                                   prompt, 
                                   setLeft, setMiddle, setRight, 
-                                  setApps
+                                  setApps, 
+                                  setExtra, 
+                                  setAi
                                 );
                             }
                         }}/>
@@ -243,7 +281,9 @@ function GenAI({
                                     setNodes, 
                                     prompt, 
                                     setLeft, setMiddle, setRight, 
-                                    setApps
+                                    setApps, 
+                                    setExtra, 
+                                    setAi
                             )}> 
                             <img width="80%" src="/upload.svg"/>
                             </button>
@@ -261,52 +301,83 @@ function GenAI({
             )}
         </div>
 
-        <div style={{padding:"0 2vw"}}>
-            <div style={{display: "flex", justifyContent: "end"}}>
-               
-            </div>
+        <div style={{padding:"0 0 2vw 2vw", overflowX:"hidden", overflowY:"hidden"}}>
         {nodes?.m && (
-            <div 
-            style={{display: "flex", justifyContent:"end"}}>
-                <div style={{ width:"100%", display: "flex", justifyContent:"space-between"}}>
-                    <div className={styles.colThird}>
-                        {nodes.l && left && Object.entries(left).map(([key, category]) => (
-                            < Node
-                                app = {key}
-                                category = {category}
-                                len = {Object.keys(left).length}
-                                selected = {selected}
-                                left = {left}
-                                setClicked = {setClick}
-                            />
-                        ))}
+            <div>
+                <div style={{ width: showExtra? "120vw" : "96vw", display: "flex"}}>
+                    <div style={{width:"90vw", display: "flex", justifyContent:"space-between"}}>
+                        <div className={showExtra? `${styles.colThird}` : `${styles.colFourth}`}>
+                            {nodes.l && left && Object.entries(left).map(([key, category]) => (
+                                < Node
+                                    app = {key}
+                                    category = {category}
+                                    len = {Object.keys(left).length}
+                                    selected = {selected}
+                                    left = {left}
+                                    setClicked = {setClick}
+                                />
+                            ))}
+                        </div>
+                        <div className={showExtra? `${styles.colThird}` : `${styles.colFourth}`}>
+                            {nodes.m && middle && Object.entries(middle).map(([key, category]) => (
+                                < Node
+                                    app = {key}
+                                    category = {category}
+                                    len = {Object.keys(middle).length}
+                                    selected = {selected}
+                                    listApps = {middle}
+                                    setClicked = {setClick}
+                                />
+                            ))}
+                        </div>
+                        <div className={showExtra? `${styles.colThird}` : `${styles.colFourth}`}>
+                            {nodes.r && right && Object.entries(right).map(([key, category]) => (
+                                < Node
+                                    app = {key}
+                                    category = {category}
+                                    len = {Object.keys(right).length}
+                                    selected = {selected}
+                                    listApps = {right}
+                                    setClicked = {setClick}
+                                />
+                            ))}
+                        </div>
                     </div>
-                    <div className={styles.colThird}>
-                        {nodes.m && middle && Object.entries(middle).map(([key, category]) => (
-                            < Node
-                                app = {key}
-                                category = {category}
-                                len = {Object.keys(middle).length}
-                                selected = {selected}
-                                listApps = {middle}
-                                setClicked = {setClick}
-                            />
-                        ))}
-                    </div>
-                    <div className={styles.colThird}>
-                        {nodes.r && right && Object.entries(right).map(([key, category]) => (
-                            < Node
-                                app = {key}
-                                category = {category}
-                                len = {Object.keys(right).length}
-                                selected = {selected}
-                                listApps = {right}
-                                setClicked = {setClick}
-                            />
-                        ))}
+                        {showExtra && (
+                            <div className={styles.colAdd}
+                            onMouseEnter={() => setShow(true)}
+                            onMouseLeave={() => setShow(false)}
+                            >    
+                                <div style={{display:"flex", alignItems:"center", height:"100%"}}>
+                                    <div className={styles.addButton}
+                                    onClick = {() => extraClick()}>
+                                        <p style={{fontSize:"32px"}}>+</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                        }
+                        {(show || !showExtra) && (
+                            <div>
+                                <div 
+                                className={showExtra? `${styles.colThird}` : `${styles.colFourth}`}
+                                style={{height:"75%", marginLeft:"8px"}}
+                                >
+                                    {nodes.e && extra && Object.entries(extra).map(([key, category]) => (
+                                        < Node
+                                            app = {key}
+                                            category = {category}
+                                            len = {Object.keys(extra).length}
+                                            selected = {selected}
+                                            listApps = {extra}
+                                            setClicked = {setClick}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                        )}  
                     </div>
                 </div>
-            </div>
     )}
     </div>
     </>

@@ -20,14 +20,12 @@ function Music({app, len, info, setInfo, prompt, setPrompt, generate, selected, 
                 style = {{borderColor: (selected === "Music") ? "rgb(50,173,230)" : ""}}>
                 <div className={styles.top}/>
                 <div 
-                    contentEditable
-                    suppressContentEditableWarning
                     style={{margin:"0 16px 8px 16px", display:"flex"}}>
                     <div style={{marginRight:"8px"}}>
                     <img height="36px" width="36px" src="/spotify.svg"/>
                     </div>
                     <div>
-                        <h1>{app}: {info.title}</h1>
+                        <h1>{info.title}</h1>
                         <p style={{color:"lightgray"}}>{info.description}</p>
                     </div>
                 </div>
@@ -42,7 +40,6 @@ function Music({app, len, info, setInfo, prompt, setPrompt, generate, selected, 
                             </div>
                             <div style={{width:"100%"}}>
                                 <h3>{event.title}</h3>
-                                {/* Handle different structures for `event` */}
                                 {event.des && <p style={{color:"lightgray"}}>{event.des}</p>}
                                 <hr className={styles.notesBorder}/>
                             </div>

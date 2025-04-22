@@ -24,7 +24,7 @@ export async function POST(req) {
                 `
                 Your job is to return JSON that includes:
                 - You are a planner creating a detailed and complete multiple step event. 
-                - Choose apps from this list that best fit the prompt: Notes, Alarm, Music, Reminders
+                - Choose apps from this list that best fit the prompt: Notes, Alarm, Music, Reminders, Safari
                 - Have the title be a 5 word maximum summary of the description. 
                 - Here is an example of the desired format for preparing for a job interview: 
 
@@ -72,12 +72,25 @@ export async function POST(req) {
                                 { "title": "Review notes", "des": "8:00 AM"}
                             ]
                         }
+                    }, 
+                    "e": 
+                    {
+                        "Safari":
+                        {
+                            "title": "Interview Web Search", 
+                            "description": "These are some links about interviews",
+                            "events": [
+                                { "title": "HBR Interview Prep", "des": "https://hbr.org/2021/11/10-common-job-interview-questions-and-how-to-answer-them"}
+                            ]
+                        }
+
                     }
+                    
                 }
 
                 RULES: 
-                - YOU MUST Make sure each app has at least 5 entries in "events". 
-                - YOU MUST Make sure that "l", "m", and "r" have less than 2 apps, and that one of them has 2 apps. 
+                - YOU MUST Make sure each app has at least 5 elements in array "events". 
+                - YOU MUST Make sure that "l", "m", "r" and "e" have less than 2 apps, and that one of them has 2 apps. 
                 - YOU MUST Return the response in JSON format that can be parsed by JSON.parse().
                 - YOU MUST Try to get to 4 apps total. 
                 - YOU MUST For alarm, ONLY give the time in des (8:00 AM), and the activity in the title (Wake Up). Follow the provided format for times. 

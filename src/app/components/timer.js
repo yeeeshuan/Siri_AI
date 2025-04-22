@@ -22,7 +22,7 @@ function Timer({app, len, info, setInfo, prompt, setPrompt, generate, selected, 
                 <div className={styles.top}/>
                 <div 
                     style={{margin:"8px 16px"}}>
-                    <h1>{app}: {info.title}</h1>
+                    <h1>{info.title}</h1>
                     <p style={{color:"lightgray"}}>{info.description}</p>
                 </div>
             </div>

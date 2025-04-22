@@ -25,6 +25,7 @@ export default function Home() {
   const [left, setLeft] = useState(null); 
   const [middle, setMiddle] = useState(null); 
   const [right, setRight] = useState(null); 
+  const [extra, setExtra] = useState(null); 
 
   const [selected, setSelected] = useState("All")
 
@@ -65,10 +66,11 @@ export default function Home() {
             <GenAI 
             setLoading = {setLoading} loading = {loading}
             setNodes = {setNodes} nodes = {nodes}
-            setApps = {setApps}
+            setApps = {setApps} apps = {apps}
             setLeft={setLeft} left={left}
             setMiddle={setMiddle} middle={middle}
             setRight={setRight} right={right}
+            setExtra={setExtra} extra = {extra}
             selected = {selected}
             setClick = {setClick}
 
@@ -114,6 +116,15 @@ export default function Home() {
                 path =  "/notes.svg"
                 />
               </div>:
+               app === "Safari" ? 
+               <div
+               onClick = {() => onClick(app)}
+               >
+                 <App
+                 app = {app}
+                 path =  "/safari.svg"
+                 />
+               </div>:
               <div
               onClick = {() => onClick(app)}
               >

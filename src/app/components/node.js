@@ -6,6 +6,7 @@ import Notes from "./notes";
 import Reminder from "./reminder";
 import Music from "./music";
 import Alarm from "./timer";
+import Safari from "./safari";
 
 // Regeneration function API call 
 async function regen(setLoading, info, setInfo, prompt, app) {
@@ -112,7 +113,20 @@ function Node({app, category, len, selected, listApps, setClicked}) {
                 listApps = {listApps}
                 setClicked = {setClicked}
             />
-        ):(
+        ): app === "Safari" ?(
+            <Safari
+            app = {app}
+            len = {len}
+            info = {info}
+            setInfo = {setInfo} 
+            prompt = {prompt}
+            setPrompt = {setPrompt}
+            generate = {regen}
+            selected = {selected}
+            listApps = {listApps}
+            setClicked = {setClicked}
+            />
+        ): (
             <div 
                 contentEditable
                 suppressContentEditableWarning

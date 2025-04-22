@@ -255,11 +255,38 @@
 }
 
 .colThird{
-  width: 33%; 
+  width: 32.5vw; 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 63%; 
+  max-height: 75%; 
+  margin-right: 10px;
+}
+
+.colFourth{
+  width: 23.5vw; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 75%; 
+  margin-right: 0.5vw;
+}
+
+.colAdd{
+  width: 4vw; 
+  height: 80vh; 
+  display: flex;
+  align-items: center;
+
+}
+
+.addButton{
+  padding: 16px 22px; 
+  border-radius: 64px;
+  background-color: var(--dark-gray);
+  line-height: 1;
+  font-weight: 200;
+
 }
 
 .loading{
