@@ -4,6 +4,7 @@
   overflow-y: hidden;
   position: relative;
   z-index: 1;
+  background-size: 100%;
 }
 
 .loadingStatus{
@@ -13,6 +14,7 @@
   position: relative;
   z-index: 1;
   overflow: hidden;
+  background-size: 100%;
 }
 
 .loadingStatus::before {
@@ -270,6 +272,7 @@
   justify-content: space-between;
   max-height: 75%; 
   margin-right: 0.5vw;
+  transition: 0.4s ease-in-out;
 }
 
 .colAdd{
