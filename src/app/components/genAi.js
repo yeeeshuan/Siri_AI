@@ -203,11 +203,11 @@ function GenAI({
     const [show, setShow] = useState(false); 
     const [showExtra, setShowExtra]  = useState(true)
 
-    // useEffect(() => {
-    //     if (!nodes) {
-    //         lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setExtra);
-    //     }
-    // }, [nodes]);
+    useEffect(() => {
+        if (!nodes) {
+            lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setExtra);
+        }
+    }, [nodes]);
 
     const handleInputChange = (event) => {
         console.log("PROMPT", prompt)

@@ -55,8 +55,11 @@ export default function Home() {
       setSelected("Music")
     }
 
-    if (app == "Notes"){
+    else if (app == "Notes"){
       setSelected("Notes")
+    }
+    else if (app == "Safari"){
+      setSelected("Safari")
     }
   }
 
