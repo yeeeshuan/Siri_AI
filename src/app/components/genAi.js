@@ -203,11 +203,11 @@ function GenAI({
     const [show, setShow] = useState(false); 
     const [showExtra, setShowExtra]  = useState(true)
 
-    // useEffect(() => {
-    //     if (!nodes) {
-    //         lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setExtra);
-    //     }
-    // }, [nodes]);
+    useEffect(() => {
+        if (!nodes) {
+            lebron(event, setNodes, setLeft, setMiddle, setRight, setApps, setExtra);
+        }
+    }, [nodes]);
 
     const handleInputChange = (event) => {
         console.log("PROMPT", prompt)
@@ -301,7 +301,7 @@ function GenAI({
             )}
         </div>
 
-        <div style={{padding:"6vh 0 2vw 2vw", overflowX:"hidden", overflowY:"hidden"}}>
+        <div style={{padding:"5vh 0 2vw 2vw", overflowX:"hidden", overflowY:"hidden"}}>
         {nodes?.m && (
             <div>
                 <div style={{ width: showExtra? "120vw" : "96vw", display: "flex"}}>
@@ -313,7 +313,7 @@ function GenAI({
                                     category = {category}
                                     len = {Object.keys(left).length}
                                     selected = {selected}
-                                    left = {left}
+                                    listApps = {left}
                                     setClicked = {setClick}
                                 />
                             ))}

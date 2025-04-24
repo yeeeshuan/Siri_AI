@@ -10,6 +10,7 @@
 
 .notesWrapper{
     width: 100%; 
+    transition: 0.4s ease-in-out;
 }
 
 .notes {

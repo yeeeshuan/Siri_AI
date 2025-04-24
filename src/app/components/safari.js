@@ -3,7 +3,7 @@ import styles from "./reminder.module.css"
 import Input from "./input";
 import { useState } from "react";
 
-function Safari({app, len, info, setInfo, prompt, setPrompt, generate, selected, setClicked}) {
+function Safari({app, len, info, setInfo, prompt, setPrompt, generate, selected, listApps, setClicked}) {
     const [loading, setLoading] = useState(false)
     return(
         <div className={styles.notesWrapper}

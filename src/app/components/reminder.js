@@ -3,15 +3,16 @@ import styles from "./reminder.module.css"
 import Input from "./input";
 import { useState } from "react";
 
-function Reminder({app, len, info, setInfo, prompt, setPrompt, generate, selected, setClicked}) {
+function Reminder({app, len, info, setInfo, prompt, setPrompt, generate, selected, listApps, setClicked}) {
+    console.log("LA", listApps); 
     const [loading, setLoading] = useState(false)
     return(
         <div className={styles.notesWrapper}
         onClick = {() => setClicked(app)}
         style={{height: 
-                    (len == 2)? (selected === "Reminders") ? "73%" : 
+                    (len == 2)? (selected === "Reminders") ? "70%" : 
                     (!(selected === "All") && !(selected === "Reminders") && (selected in listApps)) ? "5%" : 
-                        "39%" 
+                        "37%" 
                 : "100%" }}>
             <div className={`${styles.notes} ${styles.up}`}
             style = {{borderColor: (selected === "Reminders") ? "rgb(50,173,230)" : ""}}
@@ -54,6 +55,7 @@ function Reminder({app, len, info, setInfo, prompt, setPrompt, generate, selecte
                                 >
                                     {event.des}
                                 </p>}
+
                             </div>
                         </div>
                     ))}

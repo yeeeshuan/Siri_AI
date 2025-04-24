@@ -30,7 +30,8 @@ function onDesChange(main, info, setInfo, id, newDes) {
     setInfo(info); 
 }
 
-function Notes({app, len, info, setInfo, prompt, setPrompt, generate, selected, setClicked}) {
+function Notes({app, len, info, setInfo, prompt, setPrompt, generate, selected, listApps, setClicked}) {
+    console.log(selected, listApps); 
     const [loading, setLoading] = useState(false)
     const id = Object.entries(info.events).length;
     return(
@@ -38,9 +39,9 @@ function Notes({app, len, info, setInfo, prompt, setPrompt, generate, selected, 
         className={styles.notesWrapper}
         onClick = {() => setClicked(app)}
         style={{height: 
-                    (len == 2)? (selected === "Notes") ? "73%" : 
+                    (len == 2)? (selected === "Notes") ? "70%" : 
                     (!(selected === "All") && !(selected === "Notes") && (selected in listApps)) ? "5%" : 
-                        "39%" 
+                        "37%" 
                 : "100%" }}>
             <div className={`${styles.notes} ${styles.up}`}
                 style = {{borderColor: (selected === "Notes") ? "rgb(50,173,230)" : ""}}

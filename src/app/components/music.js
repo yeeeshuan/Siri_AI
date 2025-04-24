@@ -4,7 +4,6 @@ import Input from "./input";
 import { useState } from "react";
 
 function Music({app, len, info, setInfo, prompt, setPrompt, generate, selected, listApps, setClicked}) {
-    console.log("LIST APPS", selected, listApps)
 
     const [loading, setLoading] = useState(false)
     return(
